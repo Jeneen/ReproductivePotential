@@ -15,6 +15,8 @@ Fish fecundity scales hyperallometrically with body mass,  meaning larger female
 <br>
 <br>
 
+Session info
+-
 sessionInfo()
 R version 4.1.1 (2021-08-10)
 Platform: aarch64-apple-darwin20 (64-bit)
