@@ -8,13 +8,19 @@ options(mc.cores = parallel::detectCores())
 alldata <- readRDS("output/alldata_SDandCIof1000_clean_cinner2020.rda")
 alldata$LogBiomass_above20cm=log(alldata$Biomass_above20cm+1)
 
+
+#default priors (intercept prior = median of the response from the data)
+# b is flat prior
+priors <- prior(student_t(3, 5.6, 2.5), class = "Intercept") + 
+  prior(student_t(3, 0, 2.5), class = "sd") 
+
 set.seed(1)
 B20_mod =brm(LogBiomass_above20cm~
                         DepthCategory+CleanHabitat+Protection+CensusMethod+sTotal_sampling_area+sgrav_tot2+
                         sRegional_population_growth+sOcean_prod+sClimate_stress+
                         sLarger_pop_size+sReef_fish_landings_per_km2+
                         (1|Larger/ReefCluster),
-                      data=alldata,family=gaussian,
+                      data=alldata,family=gaussian,prior = priors,
                       iter=10000,  warmup=9000,
                       chains=4) 
 saveRDS(fec_mod_se, "output/brms_20cmBiomass.rds")
@@ -49,6 +55,9 @@ pp_check(fec_mod_se, type = "scatter_avg")
 ##################################################################
 ##                  Mature female biomass                       ##
 ##################################################################
+#default brms priors
+priors <-  prior(student_t(3, 5.2, 2.5), class = "Intercept") +  
+  prior(student_t(3, 0, 2.5), class = "sd")
 set.seed(1)
 matf_mod_se =brm(LogBiomassKGMean | se(LogBiomassKGSD, sigma = TRUE)~
                   DepthCategory+CleanHabitat+Protection+CensusMethod+
@@ -56,7 +65,7 @@ matf_mod_se =brm(LogBiomassKGMean | se(LogBiomassKGSD, sigma = TRUE)~
                   sRegional_population_growth+sOcean_prod+sClimate_stress+
                   sLarger_pop_size+sReef_fish_landings_per_km2+
                   (1|Larger/ReefCluster),
-                data=alldata,family=gaussian(),
+                data=alldata,family=gaussian(),prior = priors,
                 iter=10000,  warmup=9000,
                 chains=4) 
 saveRDS(matf_mod_se, "output/brms_matf_se.rds")
@@ -75,13 +84,15 @@ pp_check(matf_mod_se, type = "scatter_avg")
 alldata <- readRDS("output/SERRANIDAE_alldata_clean_cinner2020.rda")
 
 #can't have measurement error included in hurdle lognormal
+#original without ME
 set.seed(1)
 fec_model_ser = brm(FecundityMean ~
                           DepthCategory+CleanHabitat+Protection+CensusMethod+sTotal_sampling_area+sgrav_tot2+
                           sRegional_population_growth+sOcean_prod+sClimate_stress+
                           sLarger_pop_size+sReef_fish_landings_per_km2+
                           (1|Larger/ReefCluster), 
-                        data=alldata,family=hurdle_lognormal(link = "identity", link_sigma = "log",
+                        data=alldata, 
+                        family=hurdle_lognormal(link = "identity", link_sigma = "log",
                                                              link_hu = "logit"),
                         iter=10000,  warmup=9000,chains=4) 
 
@@ -121,6 +132,9 @@ saveRDS(hurdle_model, "output/SERRANIDAE_brms_fecundity_zeros_hurdle.rds")
 positive_data <- subset(alldata, FecundityMean > 0)
 
 # Fit the normal model
+#default brms priors
+priors <-  prior(student_t(3, 18.4, 2.5), class = "Intercept") + 
+  prior(student_t(3, 0, 2.5), class = "sd")
 set.seed(1)
 normal_model <- brm(
   LogFecundityMean | se(LogFecunditySD, sigma = TRUE)~ DepthCategory + CleanHabitat + Protection + CensusMethod +
@@ -128,7 +142,7 @@ normal_model <- brm(
     sRegional_population_growth + sOcean_prod + sClimate_stress +
     sLarger_pop_size + sReef_fish_landings_per_km2 +
     (1 | Larger/ReefCluster),
-  data = positive_data,
+  data = positive_data,prior = priors,
   family=gaussian(),
   iter = 10000, warmup = 9000, chains = 4
 )
@@ -173,6 +187,9 @@ saveRDS(scaridae_hurdlelog,
 
 
 #no zeros model
+#default brms priors
+priors <-  prior(student_t(3, 17.5, 2.5), class = "Intercept") + 
+  prior(student_t(3, 0, 2.5), class = "sd")
 set.seed(1)
 scaridae_model <- brm(
   LogFecundityMean | se(LogFecunditySD, sigma = TRUE)~ DepthCategory + CleanHabitat + Protection + CensusMethod +
@@ -180,7 +197,7 @@ scaridae_model <- brm(
     sRegional_population_growth + sOcean_prod + sClimate_stress +
     sLarger_pop_size + sReef_fish_landings_per_km2 +
     (1 | Larger/ReefCluster),
-  data = positive_data,
+  data = positive_data, prior = priors,
   family=gaussian(),
   iter = 10000, warmup = 9000, chains = 4
 )
@@ -227,6 +244,9 @@ saveRDS(lutjanidae_hurdlelog,
 
 
 #no zeros model
+#default brms priors
+priors <-  prior(student_t(3, 16.2, 2.5), class = "Intercept") + 
+  prior(student_t(3, 0, 2.5), class = "sd")
 set.seed(1)
 lutjanidae_model <- brm(
   LogFecundityMean | se(LogFecunditySD, sigma = TRUE)~ DepthCategory + CleanHabitat + Protection + CensusMethod +
@@ -234,7 +254,7 @@ lutjanidae_model <- brm(
     sRegional_population_growth + sOcean_prod + sClimate_stress +
     sLarger_pop_size + sReef_fish_landings_per_km2 +
     (1 | Larger/ReefCluster),
-  data = positive_data,
+  data = positive_data, prior = priors,
   family=gaussian(),
   iter = 10000, warmup = 9000, chains = 4
 )
