@@ -50,7 +50,7 @@ saveRDS(sex_phy_model, file = "output/sex_phy_model_noprotog.rds")
 #checks
 plot_sex_phy_model <- plot(sex_phy_model)
 pp_sex_model <- pp_check(sex_phy_model, nsamples = 100)
-r2 <- bayes_R2(sex_phy_model)
+r2_sex_model <- bayes_R2(sex_phy_model)
 
 #save
 saveRDS(plot_sex_phy_model, file = "output/plot_sex_model.rds")
