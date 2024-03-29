@@ -14,7 +14,6 @@ tree_vcv <- ape::vcv(grafted_tree, corr = TRUE)
 final$temp_scaled <- scale(final$temp)[,1]
 
 #run model
-set.seed(1)
 lm_phy_model <- brm(
   logLm ~ 
     temp_scaled +
@@ -27,7 +26,6 @@ lm_phy_model <- brm(
           prior(gamma(2, 0.1), class = "sd") +
           prior(gamma(2, 0.1), class = "sigma")),
   chains = 4, 
-  cores = 1, iter=10000, warmup=9000,  
   control = list(adapt_delta = 0.999,
                  max_treedepth = 20))
 
