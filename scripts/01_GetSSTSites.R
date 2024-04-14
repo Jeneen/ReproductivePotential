@@ -11,7 +11,7 @@ lonE = max(site$Site_Long)
 latS = min(site$Site_Lat)
 latN = max(site$Site_Lat)
 
-ssts = extractOISSTweekly("data/sst.wkmean.1990-present.nc","data/lsmask.nc", 
+sst = extractOISSTweekly("data/sst.wkmean.1990-present.nc","data/lsmask.nc", 
                           lonW=-180, lonE=180,latS=-33,latN = 30,date1='1992-01-01',date2='2013-01-01')
 
 #median sampling year +/- 5 years
@@ -20,6 +20,8 @@ median(data$Year) # == 2008
 max(data$Year)
 min(data$Year)
 
+#reshape
+sst2 <- melt(sst)
 
 #select sst from 2003 - 2013 (median = 2008+/-5)
 sst2$Date <- as.character(sst2$Date)

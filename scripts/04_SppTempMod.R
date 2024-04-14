@@ -1,5 +1,5 @@
 ##########          Run on Lancaster University HPC        ########## 
-
+#options(mc.cores = parallel::detectCores())
 rstan::rstan_options(auto_write = TRUE)
 
 #Import data
@@ -25,7 +25,11 @@ lm_phy_model <- brm(
           prior(normal(2.92, 2.16), class = "Intercept") +   ##taken from mean/sd of fishlife lm values for serf spp
           prior(gamma(2, 0.1), class = "sd") +
           prior(gamma(2, 0.1), class = "sigma")),
-  chains = 4, 
+  seed =1,
+  chains = 4,  
+  iter = 10000,
+  warmup = 9000, 
+  cores = 4,
   control = list(adapt_delta = 0.999,
                  max_treedepth = 20))
 
