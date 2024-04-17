@@ -17,9 +17,8 @@ get_variables(fit_lm)
 
 #Extrap script adapted from https://github.com/valerianoparravicini/Trophic_Fish_2020
 r_phylo <- tidybayes::spread_draws(fit_lm, r_Species[species,Intercept])
-b <- tidybayes::spread_draws(fit_lm, b_temp_scaled) #extract b_Intercept later
+b <- tidybayes::spread_draws(fit_lm, b_temp_scaled,  b_Intercept, r_Species[species,temp_scaled])
 r_sp_tree <- tidybayes::spread_draws(fit_lm, r_species_tree[species,Intercept])
-r_sp_tree <- extract_r_sp_tree(fit_lm)
 sigma <- tidybayes::spread_draws(fit_lm, sigma)
 
 ### test extrapolation method

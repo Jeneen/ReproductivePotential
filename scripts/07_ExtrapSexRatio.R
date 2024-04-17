@@ -1,5 +1,5 @@
 # load data
-species_list <- readRDS("data/SERF_species_list.rds")
+species_list <- readRDS("data/processed/SERF_species_list.rds")
 fit_sex <- readRDS("output/sex_phy_model_noprotog.rds")
 tree <- ape::read.tree("data/grafted_tree.tre")
 data <- read.csv("data/sex_ratio_lit_protog.csv")
@@ -59,10 +59,10 @@ tree2 <- tree
 tip <- as.data.frame(tree2$tip.label)
 names(tip) <- "tip.label"
 drop <- tip %>% filter(tip.label %!in% species_list$genus_sp)
-tree2 <- drop.tip(tree2, drop)
+tree2 <- ape::drop.tip(tree2, drop$tip.label)
 tip <- as.data.frame(tree2$tip.label)
 names(tip) <- "genus_species"
-tip <- unique(tip)#11971
+tip <- unique(tip)#1106
 
 missing <- filter(species_list, genus_sp %!in% tree2$tip.label)
 missing <- filter(species_list, genus_sp %!in% tip$genus_species)
@@ -72,7 +72,7 @@ missing <- unique(missing)
 #estimate for species not in the cov matrix
 est_tree <- phyEstimate(tree2, t1, method="pic") 
 
-#est is species level intercept and slope?
+#est is species level intercept and slope
 est <- phyEstimate(tree2, st1, method="pic") 
 
 
@@ -130,7 +130,7 @@ new_all <- inner_join(new_all, data, by = "species")
 
 #predict mu for new sp given temp
 extrap <- merge.data.frame(species_list, new_all, by.x = c("genus_sp"), by.y = c("species"))
-extrap$mu <- inverse_logit(0.5675483 + extrap$intercept_tree + extrap$intercept)
+extrap$mu <- inverse_logit(median(sp_b1$median) + extrap$intercept_tree + extrap$intercept)
 plot(extrap$mu, extrap$ratio)
 
 
@@ -139,15 +139,15 @@ new_all <- inner_join(new_tree, new, by = "species")
 extrap <- merge.data.frame(species_list, new_all, by.x = c("genus_sp"), by.y = c("species"))
 
 
-#sp_b1$median = 0.5675483
-extrap$mu <- 0.5675483 + extrap$intercept_tree + extrap$intercept
+#sp_b1$median = 0.5631346 (old 0.5675483)
+extrap$mu <- median(sp_b1$median) + extrap$intercept_tree + extrap$intercept
 extrap$ratio_pred <- inverse_logit(extrap$mu)
 
 
 #select + replace all gonochoristic spp with 0.5 ratio
 
 #get species and families from dataset
-sp_fam <- readRDS("Data/SERF_species_list.rds")
+sp_fam <- readRDS("Data/processed/SERF_species_list.rds")
 names(sp_fam) <- c("Family", "genus_sp")
 sp_fam <- na.omit(sp_fam)
 
