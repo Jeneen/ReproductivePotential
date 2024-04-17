@@ -174,50 +174,6 @@ correct_taxonomy = read_file("data/correct_taxonomy.csv")
 grafted_tree = ape::read.tree("data/grafted_tree.tre")
 fecundity_model = run_fecundity_model(fecundity, grafted_tree,
                                       correct_taxonomy)
-summary = summary(fecundity_model)
+summary(fecundity_model)
 save(fecundity_model, file="output/fecundity_model.rds")
-write.csv(summary, file = "output/fecundity_model_summary.csv")
-
-
-extract_r_phylo <- function(fecundity_model){
-  
-  r_phylo <- tidybayes::spread_draws(fecunidty_model, r_phylo__mu2[species,Intercept], 
-                                     r_phylo__mu3[species,Intercept], 
-                                     r_phylo__mu4[species,Intercept],
-                                     r_phylo__mu5[species,Intercept],
-                                     r_phylo__mu6[species,Intercept],
-                                     r_phylo__mu7[species,Intercept],
-                                     r_phylo__mu8[species,Intercept])
-  return(r_phylo)
-}
-
-extract_b <- function(fecundity_model){
-  
-  b <- tidybayes::spread_draws(fecundity_model, b_mu2_Intercept, b_mu3_Intercept,
-                               b_mu4_Intercept, b_mu5_Intercept, 
-                               b_mu6_Intercept, b_mu7_Intercept,
-                               b_mu8_Intercept,
-                               b_mu2_logsizemax, b_mu3_logsizemax,
-                               b_mu4_logsizemax, b_mu5_logsizemax,
-                               b_mu6_logsizemax, b_mu7_logsizemax,
-                               b_mu8_logsizemax)
-  return(b)
-}
-
-
-
-
-
-r_phylo <- extract_r_phylo(fecundity_model)
-hyp <- "sd_phylo__Intercept^2 / (sd_phylo__Intercept^2 + sigma^2) = 0"
-hyp <- hypothesis(model_simple, hyp, class = NULL)
-write.csv(hyp, file = "output/fecundity_phylogenetic_signal.csv")
-write.csv(r_phylo, file = "output/r_phylo_fecundity_phylogenetic_signal.csv")
-
-
-
-
-
-
-
 
