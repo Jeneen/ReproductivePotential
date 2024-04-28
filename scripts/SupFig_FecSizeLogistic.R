@@ -1,13 +1,10 @@
-
-palette <- magma(n=10)
-
 #Load models
-Fit_FecClassBiomass<- readRDS("Output/reproductive_potential_serf/Fecundity class/logisticFecBiom_model.rds")
+Fit_FecClassBiomass<- readRDS("output/logisticFecBiom_model.rds")
 summary(Fit_FecClassBiomass)
-Fit_FecClassAbundance <- readRDS("Output/reproductive_potential_serf/Fecundity class/logisticFecAbund_model.rds")
+Fit_FecClassAbundance <- readRDS("output/logisticFecAbund_model.rds")
 summary(Fit_FecClassAbundance)
-Fit_SizeClassBiomass <- readRDS("Output/reproductive_potential_serf/Size class/logisticSize_allfec_biomass_model.rds")
-
+Fit_SizeClassBiomass <- readRDS("output/logisticSize_allfec_biomass_model.rds")
+summary(Fit_SizeClassBiomass)
 
 #extract conditional effects
 #Fecundity class as proportion of abundance model
@@ -153,7 +150,7 @@ SizeBiom_fig
 
 
 ###############
-proportionMatureFit <- readRDS("Output/reproductive_potential_serf/proportionMatureFit.rds")
+proportionMatureFit <- readRDS("output/proportionMatureFit.rds")
 summary(proportionMatureFit)
 ce_propMature <- conditional_effects(proportionMatureFit, "sLogMeanAllFishBiomassKgHa",
                                        prob = 0.95, ndraws =1000, re_formula = NULL) 
@@ -164,7 +161,7 @@ dat <- proportionMatureFit$data
 
 propMature_fig <- ggplot(data = ce_propMature, aes(x = sLogMeanAllFishBiomassKgHa, y = estimate__))+
   geom_line(size = 1)+
-  geom_point(data = dat, aes(x = sLogMeanAllFishBiomassKgHa, mean_prop_immature), alpha = 0.2)+   
+  geom_point(data = dat, aes(x = sLogMeanAllFishBiomassKgHa, mean_prop_mature), alpha = 0.2)+   
   geom_ribbon(aes(ymin = lower__, ymax = upper__), alpha = 0.2, fill = palette[1])+
   theme +
   theme(legend.title = element_blank(), legend.position = 'none')+
@@ -174,13 +171,13 @@ propMature_fig <- ggplot(data = ce_propMature, aes(x = sLogMeanAllFishBiomassKgH
 #ggtitle("Size classes as a proportion of the total biomass")
 propMature_fig
 
-ce_propMature <- conditional_effects(proportionImmatureFit, "Protection",
+ce_propMature <- conditional_effects(proportionMatureFit, "Protection",
                                        prob = 0.95, ndraws =1000, re_formula = NULL) 
 ce_propMature <- as.data.frame(ce_propMature$Protection)
 
 
 #proportion mature vs. protection
-proportionMatureFit <- readRDS("Output/reproductive_potential_serf/proportionMatureFit.rds")
+proportionMatureFit <- readRDS("output/proportionMatureFit.rds")
 ce_propMature <- conditional_effects(proportionMatureFit, "Protection",
                                        prob = 0.95, ndraws =1000, re_formula = NULL) 
 ce_propMature  <- as.data.frame(ce_propMature$Protection)
@@ -201,19 +198,15 @@ ProtMatureBiom_fig
 
 
 ####################
-library(cowplot)
-proportions_fig <- plot_grid(ProtFecBiom_fig, ProtAbund_fig, ProtSizeBiom_fig, BiomFecBiom_fig, 
+proportions_fig <- cowplot::plot_grid(ProtFecBiom_fig, ProtAbund_fig, ProtSizeBiom_fig, BiomFecBiom_fig, 
                              BiomAbund_fig,SizeBiom_fig, labels = "AUTO", align = "h", label_size = 20)
 proportions_fig
 
 
-pdf(file = "Output/supplement/logistic_models_grid_fec&size.pdf",   # The directory you want to save the file in
-    width = 25, # The width of the plot in inches
-    height = 10) # The height of the plot in inches
-
+pdf(file = "output/logistic_models_grid_fec&size.pdf",  
+    width = 25, 
+    height = 10) 
 proportions_fig
-
-# Step 3: Run dev.off() to create the file!
 dev.off()
 
 

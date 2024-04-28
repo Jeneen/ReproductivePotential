@@ -30,13 +30,9 @@ lm_phy_model <- brm(
   chains = 4,  
   iter = 15000,
   warmup = 7500, 
-  cores = 4,
+  cores = 4, #change number of cores for super computer
   control = list(adapt_delta = 0.999,
                  max_treedepth = 20))
 
 #save output
-saveRDS(lm_phy_model, file = "output/update_lmat_model_out.rds")
-
-
-summary(lm_phy_model)
-
+saveRDS(lm_phy_model, file = "output/lmat_model_out.rds")

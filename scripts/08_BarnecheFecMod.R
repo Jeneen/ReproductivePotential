@@ -174,6 +174,8 @@ correct_taxonomy = read_file("data/correct_taxonomy.csv")
 grafted_tree = ape::read.tree("data/grafted_tree.tre")
 fecundity_model = run_fecundity_model(fecundity, grafted_tree,
                                       correct_taxonomy)
-summary(fecundity_model)
-save(fecundity_model, file="output/fecundity_model.rds")
+saveRDS(fecundity_model, file="output/fecundity_model.rds")
+
+
+
 

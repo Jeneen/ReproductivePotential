@@ -1,10 +1,7 @@
-#functions
-'%!in%' <- function(x,y)!('%in%'(x,y))
-
 #load files 
 fit <- readRDS("output/fecundity_model.rds")
 tree <- ape::read.tree("data/grafted_tree.tre")
-data <- readRDS("data/data_processed.rds")
+data <- readRDS("data/barneche_data_processed.rds")
 matureF <- readRDS("output/SERF_biomass_matureF.rds") #df to extrapolate
 
 #clean dfs
@@ -23,7 +20,7 @@ new_extrap$biomass_ln_g_to_pred <- log(new_extrap$biomass_g)
 
 
 #get sp list
-species_list <- as.data.frame(new_extrap$genus_sp)
+species_list <- as.data.frame(new_extrap$species)
 names(species_list) <- "genus_sp"
 
 #check vars

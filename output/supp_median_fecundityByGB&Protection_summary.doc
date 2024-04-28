@@ -1,0 +1,147 @@
+<table style="border-collapse:collapse; border:none;">
+<caption style="font-weight: bold; text-align:left;">Supplementary Table 1. Median marginal fecundity (log + 1) by marine ecoregion and protection</caption>
+<tr>
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; text-align:left; ">Geographic_Basin</th>
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; ">Protection</th>
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; ">n</th>
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; ">median_pred</th>
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; ">.lower</th>
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; ">.upper</th>
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; col7">.width</th>
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; col8">.point</th>
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; col9">.interval</th>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Central Indo-Pacific</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">Fished</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">469</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">18.15</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">16.55</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">19.49</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col7">0.95</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col8">median</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col9">qi</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Central Indo-Pacific</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">Restricted</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">198</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">17.95</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">17.01</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">19.06</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col7">0.95</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col8">median</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col9">qi</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Central Indo-Pacific</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">UnfishedHigh</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">22</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">17.69</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">17.15</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">19.02</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col7">0.95</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col8">median</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col9">qi</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Eastern Indo-Pacific</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">Fished</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">500</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">17.60</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">16.67</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">18.52</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col7">0.95</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col8">median</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col9">qi</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Eastern Indo-Pacific</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">Restricted</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">120</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">17.98</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">17.10</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">18.85</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col7">0.95</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col8">median</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col9">qi</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Eastern Indo-Pacific</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">UnfishedHigh</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">2</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">18.26</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">18.26</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">18.26</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col7">0.95</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col8">median</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col9">qi</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Tropical Atlantic</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">Fished</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">40</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">18.47</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">16.82</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">19.10</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col7">0.95</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col8">median</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col9">qi</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Tropical Atlantic</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">Restricted</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">38</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">18.61</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">17.54</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">19.41</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col7">0.95</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col8">median</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col9">qi</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Tropical Atlantic</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">UnfishedHigh</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">21</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">19.24</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">18.96</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">19.33</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col7">0.95</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col8">median</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col9">qi</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Western Indo-Pacific</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">Fished</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">57</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">17.29</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">16.82</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">18.93</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col7">0.95</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col8">median</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col9">qi</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">Western Indo-Pacific</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">Restricted</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">126</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">18.71</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">17.57</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">19.53</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col7">0.95</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col8">median</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col9">qi</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; border-bottom: double; ">Western Indo-Pacific</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; ">UnfishedHigh</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; ">40</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; ">19.29</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; ">19.10</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; ">19.41</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; col7">0.95</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; col8">median</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; col9">qi</td>
+</tr>
+</table>
+

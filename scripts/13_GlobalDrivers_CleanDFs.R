@@ -1,6 +1,7 @@
 #data
 site_fecundity <- readRDS("output/siteFecundBiomass_1000.rds")
 alldata_df=read.csv("data/SERF_SiteData.csv", header = T)
+old <- readRDS("alldata_clean_cinner2020.rda")
 
 #merge
 merge_with_alldata <- function(df) {
@@ -118,8 +119,8 @@ saveRDS(alldata, "output/alldata_SDandCIof1000_clean_cinner2020.rda")
 ##                          Serranidae                          ##
 ##################################################################
 #data
-site_fecundity <- readRDS("Output/reproductive_potential_serf/Families/SERRANIDAE_siteFecundBiomass_1000.rds")
-alldata_df=read.csv("Data/Cinneretal2020_multiplegoals_data.csv", header = T)
+site_fecundity <- readRDS("output/SERRANIDAE_siteFecundBiomass_1000.rds")
+alldata_df=read.csv("data/SERF_SiteData.csv", header = T)
 
 # Apply the function to each dataframe in the site_fecundity list
 alldata <- lapply(site_fecundity, merge_with_alldata)
@@ -219,10 +220,10 @@ alldata <- filter(alldata, !is.na(FecundityMean))
 
 
 #remove sites
-alldata <- filter(alldata, UniqueSite %!in% c("2889","2890","2891","2892","2893", "2894", "2895", "2896", "2899", "2900"))
+alldata <- filter(alldata, UniqueSite %!in% c("2889","2890","2891","2892","2893", 
+                                              "2894", "2895", "2896", "2899", "2900"))
 
-
-#only 875 sites, add remainder of sites as 0
+#add remainder of sites as 0
 full_dat <- readRDS("output/alldata_SDandCIof1000_clean_cinner2020.rda")
 full_dat <- subset(full_dat, 
                    select = -c(FecundityMean, FecunditySD, Fecundity5th,
@@ -243,8 +244,6 @@ alldata2 <- alldata2 %>%
                   LogBiomassKGMean, LogBiomassKGSD, LogBiomassKG5th, LogBiomassKG95th),
                 ~replace(., is.na(.), 0)))
 
-
-
 #save
 saveRDS(alldata2, "output/SERRANIDAE_alldata_clean_cinner2020.rda")
 
@@ -255,8 +254,8 @@ saveRDS(alldata2, "output/SERRANIDAE_alldata_clean_cinner2020.rda")
 ##                          Lutjanidae                          ##
 ##################################################################
 #data
-site_fecundity <- readRDS("output/siteFecundBiomass_1000.rds")
-alldata_df=read.csv("data/Cinneretal2020_multiplegoals_data.csv", header = T)
+site_fecundity <- readRDS("output/LUTJANIDAE_siteFecundBiomass_1000.rds")
+alldata_df=read.csv("data/SERF_SiteData.csv", header = T)
 
 
 merge_with_alldata <- function(df) {
@@ -392,7 +391,7 @@ saveRDS(alldata2, "output/LUTJANIDAE_alldata_clean_cinner2020.rda")
 ##                           Scarini                           ##
 ##################################################################
 site_fecundity <- readRDS("output/SCARIDAE_siteFecundBiomass_1000.rds")
-alldata_df=read.csv("data/Cinneretal2020_multiplegoals_data.csv", header = T)
+alldata_df=read.csv("data/SERF_SiteData.csv", header = T)
 
 # Apply the function to each dataframe in the site_fecundity list
 alldata <- lapply(site_fecundity, merge_with_alldata)

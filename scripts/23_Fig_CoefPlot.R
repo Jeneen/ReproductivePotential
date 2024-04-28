@@ -18,7 +18,7 @@ fec_mod_scar <- readRDS("output/SCARIDAE_brms_fecundity.rds")
 fec_mod_lut <- readRDS("output/LUTJANIDAE_brms_fecundity.rds")
 
 #function to make plot
-make_coefplot <- function(model, title = "Coefficient Plot", y_limits = c(-1.5, 1.5)) {
+make_coefplot <- function(model, title = "Coefficient Plot", y_limits = c(-3.5, 3.5)) {
   posteriorestimates <- as.data.frame(posterior_summary(model, probs = c(0.05, 0.95)))
   
   # Coefficient plot setup
@@ -60,7 +60,7 @@ scar_plot <- scar_plot + theme(axis.text.y = element_blank(), axis.ticks.y = ele
 ser_plot <- ser_plot + theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
 
 #make combined plot
-combined_plot <- plot_grid(all_plot, lut_plot, scar_plot, ser_plot, 
+combined_plot <- cowplot::plot_grid(all_plot, lut_plot, scar_plot, ser_plot, 
                            ncol = 4, 
                            rel_widths = c(0.46, 0.18, 0.18, 0.18),
                            labels = c("A", "B", "C", "D"), # Label each plot
@@ -92,15 +92,15 @@ scar_plot <- scar_plot + theme(axis.text.y = element_blank(), axis.ticks.y = ele
 ser_plot <- ser_plot + theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
 
 
-combined_plot <- plot_grid(lut_plot, scar_plot, ser_plot, 
-                           ncol = 4, 
-                           rel_widths = c(0.46, 0.18, 0.18, 0.18),
-                           labels = c("A", "B", "C", "D"), # Label each plot
+combined_plot <- cowplot::plot_grid(lut_plot, scar_plot, ser_plot, 
+                           ncol = 3, 
+                           rel_widths = c(0.45, 0.275, 0.275),
+                           labels = c("A", "B", "C"), # Label each plot
                            label_size = 18)
 combined_plot 
 
 #save
-pdf(file = "Output/Supplement/supp_hurdlelog_coef_plot_comb.pdf",   
+pdf(file = "output/supp_hurdlelog_coef_plot_comb.pdf",   
     width = 20, 
     height = 10) 
 

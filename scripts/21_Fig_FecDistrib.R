@@ -37,7 +37,8 @@ posts<-pred %>%
   add_predicted_draws(fec,
                       re_formula = NULL, #include all group level effects
                       category='response',
-                      ndraws = 1000)
+                      seed =10,
+                      ndraws = 4000)
 
 
 
@@ -101,6 +102,16 @@ top_5
 fec_distribution_fig <- dist/top_5
 fec_distribution_fig
 
+# save legend seperatelly
+get_leg <- ggplot(fec_country_all, aes(x =  LargerProtection, y = .prediction)) +
+  geom_point(aes(color=Protection), size = 5)+
+  scale_color_manual(values = cols, labels = c("Fished", "Restricted", "Fully protected"))+
+  theme(legend.position= "top",legend.title=element_blank())+theme
+
+leg = cowplot::get_plot_component(get_leg, 'guide-box-top', return_all = TRUE)
+leg =cowplot::ggdraw(leg)
+leg
 
 
+saveRDS(leg, file="output/prot_leg.rds")
 saveRDS(fec_distribution_fig, file="output/fec_distribution_fig.rds")

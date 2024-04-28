@@ -40,11 +40,12 @@ vary <- unique(vary)
 pred<-data.frame(vary %>% cbind(cont_mean, cat_ref))
 
 #get posteriors
-set.seed(2)
+
 posts<-pred %>% 
   add_epred_draws(biom,
                   re_formula = NA,
                   category='response',
+                  seed =1,
                   ndraws = 4000)
 
 fished <- posts %>% filter(Protection == "Fished")
@@ -75,7 +76,7 @@ ratio_b20 <- ggplot()+
   stat_halfeye(data = ratios, aes(x = fished_rest, y = f_r), fill = col[1], alpha = 0.5,  
                .width = c(0.50, 0.95),density = "bounded")+
   theme+
-  xlim(1, 3)+
+  xlim(0, 5)+
   ylab("")+
   ggtitle("Biomass > 20 cm")+
  theme(axis.title = element_blank(), axis.text.x = element_blank())
@@ -101,11 +102,12 @@ vary <- subset(dat, select = c(Protection) )
 vary <- unique(vary)
 pred<-data.frame(vary %>% cbind(cont_mean, cat_ref))
 
-set.seed(2)
+
 posts<-pred %>% 
   add_epred_draws(biom,
                   re_formula = NA,
                   category='response',
+                  seed =2,
                   ndraws = 4000)
 
 fished <- posts %>% filter(Protection == "Fished")
@@ -137,7 +139,7 @@ ratio_matF <- ggplot()+
   xlab("Ratio")+
   ylab("")+
   theme(axis.text.y = element_blank())+
- xlim(1, 3)+
+ xlim(0, 5)+
   ggtitle("Mature female biomass")+
   theme(axis.title = element_blank(), axis.text.x = element_blank())
 ratio_matF
@@ -159,11 +161,13 @@ cat_ref<-data.frame(DepthCategory = levels(dat$DepthCategory)[1],
 vary <- subset(dat, select = c(Protection) )
 vary <- unique(vary)
 pred<-data.frame(vary %>% cbind(cont_mean, cat_ref))
-set.seed(22)
+
+
 posts<-pred %>% 
-  add_epred_draws(biom,
+  add_epred_draws(fec,
                   re_formula = NA,
                   category='response',
+                  seed =22,
                   ndraws = 4000)
 
 fished <- posts %>% filter(Protection == "Fished")
@@ -194,7 +198,7 @@ ratio_fec <- ggplot()+
   xlab("Ratio")+
   ylab("")+
   theme(axis.text.y = element_blank())+
-  xlim(1, 3)+
+  xlim(0, 5)+
   ggtitle("Fecundity (all families)")
 ratio_fec   
 
@@ -219,11 +223,12 @@ vary <- unique(vary)
 
 pred<-data.frame(vary %>% cbind(cont_mean, cat_ref))
 
-set.seed(22)
+
 posts<-pred %>% 
-  add_epred_draws(biom,
+  add_epred_draws(fec,
                   re_formula = NA,
                   category='response',
+                  seed =23,
                   ndraws = 4000)
 
 fished <- posts %>% filter(Protection == "Fished")
@@ -253,9 +258,9 @@ ratio_lut <- ggplot()+
   xlab("Ratio")+
   ylab("")+
   theme(axis.text.y = element_blank())+
-  xlim(0,9)+
-  ggtitle("Fecundity Lutjanidae")
- # theme(axis.title = element_blank(), axis.text.x = element_blank())
+  xlim(0,15)+
+  ggtitle("Fecundity Lutjanidae")+
+  theme(axis.title = element_blank(), axis.text.x = element_blank())
 
 
 ratio_lut
@@ -280,11 +285,11 @@ vary <- unique(vary)
 pred<-data.frame(vary %>% cbind(cont_mean, cat_ref))
 
 
-set.seed(22)
 posts<-pred %>% 
-  add_epred_draws(biom,
+  add_epred_draws(fec,
                   re_formula = NA,
                   category='response',
+                  seed = 25,
                   ndraws = 4000)
 
 fished <- posts %>% filter(Protection == "Fished")
@@ -315,10 +320,9 @@ ratio_scar <- ggplot()+
   xlab("Ratio")+
   ylab("")+
   theme(axis.text.y = element_blank())+
-  xlim(1,9)+
+  xlim(1,15)+
   ggtitle("Fecundity Labridae (Scarini)")+
   theme(axis.title = element_blank(), axis.text.x = element_blank())
-  #xlim(0,4)
 
 ratio_scar
 #######################################################################################################################################
@@ -344,11 +348,12 @@ vary <- unique(vary)
 
 pred<-data.frame(vary %>% cbind(cont_mean, cat_ref))
 
-set.seed(22)
+
 posts<-pred %>% 
-  add_epred_draws(biom,
+  add_epred_draws(fec,
                   re_formula = NA,
                   category='response',
+                  seed =23,
                   ndraws = 4000)
 
 fished <- posts %>% filter(Protection == "Fished")
@@ -383,8 +388,8 @@ ratio_ser <- ggplot()+
   xlab("Ratio")+
   ylab("")+
   theme(axis.text.y = element_blank())+
-  scale_x_continuous(breaks = c(1,3,5,7,9), limits = c(1,9), 
-                     labels = label_number(accuracy = 0.1))+
+  scale_x_continuous(breaks = c(1,3,5,7,9,11,13,15), limits = c(1,15), 
+                     labels = label_number(accuracy = 1))+
   ggtitle("Fecundity Serranidae")
 
 ratio_ser

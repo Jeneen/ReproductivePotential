@@ -43,7 +43,7 @@ all <- ggplot()+
   ylab("Percent gain in fecundity")+
   xlab(" ") +
   theme(legend.position = "none")+
-  ggtitle("All families")
+  ggtitle("All families")+ylim(0,40)
 
 all 
 
@@ -64,7 +64,7 @@ serranidae <- ggplot()+
   xlab(" ") +
   theme(legend.position = "none")+
   theme(axis.text.y = element_blank())+
-  ggtitle("Serranidae")
+  ggtitle("Serranidae")+ylim(0,200)
 serranidae
 
 #plot together

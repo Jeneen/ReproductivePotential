@@ -1,4 +1,3 @@
-
 #import model and data
 fec <- readRDS("output/SERRANIDAE_brms_fecundity.rds")
 dat<-readRDS("output/SERRANIDAE_alldata_clean_cinner2020.rda")
@@ -15,8 +14,8 @@ sites %>% group_by(Geographic_Basin) %>% summarise(count = n())
 #410 per group would be even, not even
 #Geographic_Basin     count
 #<chr>                <int>
-#1 Central Indo-Pacific   687
-#2 Eastern Indo-Pacific   623
+#1 Central Indo-Pacific   689
+#2 Eastern Indo-Pacific   622
 #3 Tropical Atlantic       99
 #4 Western Indo-Pacific   223
 
@@ -42,6 +41,7 @@ posts_nochange <-pred %>%
                       re_formula = NULL,
                       category='response',
                       allow_new_levels = TRUE,
+                      seed = 5,
                       ndraws = 1000)
 
 ###################################################################################################################
@@ -56,6 +56,7 @@ posts_unfished <- newd_unfished %>% add_predicted_draws(fec,
                                                     re_formula = NULL,
                                                     category='response',
                                                     allow_new_levels = TRUE,
+                                                    seed = 5,
                                                     ndraws = 1000)
 
 
@@ -72,6 +73,7 @@ posts_fished <- newd_fished %>% add_predicted_draws(fec,
                                                     re_formula = NULL,
                                                     category='response',
                                                     allow_new_levels = TRUE,
+                                                    seed = 5,
                                                     ndraws = 1000)
 
 
@@ -101,7 +103,7 @@ for (i in 1:100) {
 # check to make sure it is a 70/30 split
 fished_count <- df_list[[1]] %>% filter(Geographic_Basin == "Central Indo-Pacific") %>%
   filter(Protection == "Fished")%>%
-  nrow()/687   ###70%
+  nrow()/689   ###70%
 unfished_count <- df_list[[1]] %>% filter(Geographic_Basin == "Tropical Atlantic") %>%
   filter(Protection == "UnfishedHigh")%>%
   nrow()/99   ###30%
@@ -118,6 +120,7 @@ for (i in 1:length(df_list)) {
                                                           re_formula = NULL,
                                                           category='response',
                                                           allow_new_levels = TRUE,
+                                                          seed = 5,
                                                           ndraws = 1000)
   master[[i]] <- posts_30unfished
 }
@@ -134,13 +137,13 @@ medianDraws30Unfish <- lapply(master, TakeMedianDraws30Unfish)
 #Combine all df in the list to one df
 posts_30Unfished  <- Reduce(rbind, medianDraws30Unfish)
 
-saveRDS(posts_30Unfished, "output/medians_posts_30percentUnfished_serranidae2.rda")
+saveRDS(posts_30Unfished, "output/medians_posts_30percentUnfished_serranidae.rda")
 
 #check output
 cent_indpacD <- posts_30Unfished %>% filter(Geographic_Basin == "Central Indo-Pacific")
 unfished_count <- cent_indpacD %>% filter(Protection == "UnfishedHigh")
 #20571/68541
-20600/68700
+20700/68900
 #30%
 
 
@@ -210,7 +213,7 @@ for (i in 1:100) {
 #check
 a <- df_cent_indpac[[1]]
 Tunfished_cent_indpac <- filter(df_cent_indpac[[1]], Protection== "UnfishedHigh")
-40/687 *100
+40/689 *100
 #okay
 
 for (i in 1:100) {
@@ -229,7 +232,7 @@ for (i in 1:100) {
 #check
 Teast_indpac <- df_east_indpac[[5]] %>% filter(Geographic_Basin == "Eastern Indo-Pacific")
 Tunfished_east_indpac <- filter(Teast_indpac, Protection== "UnfishedHigh")
-23/623 *100
+23/622 *100
 #okay
 
 for (i in 1:100) {
@@ -309,7 +312,7 @@ pred_forMaster <- function(df_list, fec, file_names) {
   # Loop through data frames and add predicted draws
   for (i in 1:length(df_list)) {
     posts_unfished <- df_list[[i]] %>% 
-      add_predicted_draws(fec, re_formula = NULL, category='response', 
+      add_predicted_draws(fec, re_formula = NULL, category='response',seed = 5, 
                           allow_new_levels = TRUE,ndraws = 1000)
     # Store result in master list
     master[[i]] <- posts_unfished
@@ -337,15 +340,15 @@ for (i in 1:length(lists_to_run)) {
 #this produces a list of df of fecundity predictions for representative percentages of GB protected
 a <- df_cent_indpac[[1]]
 b <- df_cent_indpac[[1]]%>% filter(Protection == "UnfishedHigh")
-40/687
+40/689
 
 test <- df_cent_indpac[[1]]%>% 
-  add_predicted_draws(fec, re_formula = NULL, category='response', allow_new_levels = TRUE,
+  add_predicted_draws(fec, re_formula = NULL, category='response', allow_new_levels = TRUE,seed = 5,
                       ndraws = 1000)
 mTest <- TakeMedianDraws(test)
 
 test2 <- df_cent_indpac[[2]]%>% 
-  add_predicted_draws(fec, re_formula = NULL, category='response', allow_new_levels = TRUE,
+  add_predicted_draws(fec, re_formula = NULL, category='response', allow_new_levels = TRUE,seed = 5,
                       ndraws = 1000)
 
 test3 <- rbind(test, test2)
@@ -380,7 +383,7 @@ posts_30Unfished <- readRDS("output/medians_posts_30percentUnfished_serranidae.r
 master_cent_indpac  %>% group_by(Protection) %>% summarise(count = n()) #5.8
 master_east_indpac  %>% group_by(Protection) %>% summarise(count = n()) #3.7
 master_trop_at  %>% group_by(Protection) %>% summarise(count = n())#1
-master_west_indpac   %>% group_by(Protection) %>% summarise(count = n()) #3.2
+master_west_indpac   %>% group_by(Protection) %>% summarise(count = n()) #3.1
 # yes
 
 

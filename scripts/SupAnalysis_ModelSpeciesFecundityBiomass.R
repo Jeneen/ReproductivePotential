@@ -1,3 +1,6 @@
+#set cores
+options(mc.cores = parallel::detectCores())
+
 #data
 relDat <- readRDS( "output/SizeProportions_site_fecundity_med1000samp.rds")
 
@@ -27,7 +30,7 @@ logisticBfit <- brm(size_cat | weights(proportion) ~ sLogMeanAllFishBiomassKgHa 
                       sLarger_pop_size+sReef_fish_landings_per_km2+
                (1|Larger/ReefCluster), family = categorical (link = logit ), data =  relSizeDat_long,
                control = list(adapt_delta = 0.9),
-               iter=10000,  warmup=9000,
+               iter=10000,  warmup=9000, seed =1,
                chains=4)
 summary(logisticBfit)
 pp_check(logisticBfit,nsamples=100, type = "bars") # this doesn't account for weights
@@ -61,7 +64,7 @@ logisticFecAbMFfit <- brm(fec_cat | weights(proportion) ~ sLogMeanAllFishBiomass
                       sHDI+sLarger_pop_size+sReef_fish_landings_per_km2+
                       (1|Larger/ReefCluster), family = categorical (link = logit ), data =  relFDat_long,
                     control = list(adapt_delta = 0.9),
-                    iter=10000,  warmup=9000,
+                    iter=10000,  warmup=9000, seed =1,
                     chains=4)
 summary(logisticFecAbMFfit)
 pp_check(logisticFecAbMFfit,nsamples=100, type = "bars") # this doesn't account for weights
@@ -99,7 +102,7 @@ logisticFecBiomMFfit <- brm(fec_cat | weights(proportion) ~ sLogMeanAllFishBioma
                             sHDI+sLarger_pop_size+sReef_fish_landings_per_km2+
                             (1|Larger/ReefCluster), family = categorical (link = logit ), data =  relFDatB_long,
                           control = list(adapt_delta = 0.9),
-                          iter=10000,  warmup=9000,
+                          iter=10000,  warmup=9000, seed =1,
                           chains=4)
 summary(logisticFecBiomMFfit)
 pp_check(logisticFecBiomMFfit,nsamples=100, type = "bars")
@@ -124,7 +127,7 @@ proportionMatureFit <- brm(mean_prop_mature ~ sLogMeanAllFishBiomassKgHa + Depth
                               sLarger_pop_size+sReef_fish_landings_per_km2+
                               (1|Larger/ReefCluster), family = Beta(link = "logit"), data =  biomPropMature,
                             control = list(adapt_delta = 0.9),
-                            iter=10000,  warmup=9000,
+                            iter=10000,  warmup=9000, seed =1,
                             chains=4)
 
 summary(proportionMatureFit)

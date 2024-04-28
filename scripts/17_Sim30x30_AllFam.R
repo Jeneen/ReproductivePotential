@@ -21,8 +21,8 @@ sites %>% group_by(Geographic_Basin) %>% summarise(count = n())
 #410 per group would be even
 #Geographic_Basin     count
 #<chr>                <int>
-#1 Central Indo-Pacific   687
-#2 Eastern Indo-Pacific   623
+#1 Central Indo-Pacific   689
+#2 Eastern Indo-Pacific   622
 #3 Tropical Atlantic       99
 #4 Western Indo-Pacific   223
 
@@ -50,6 +50,8 @@ posts_nochange <-pred %>%
   add_predicted_draws(fec,
                       re_formula = NULL,
                       category='response',
+                      allow_new_levels = TRUE,
+                      seed = 10,
                       ndraws = 1000)
 
 
@@ -68,6 +70,8 @@ newd_fished <- newd_fished %>%
 posts_fished <- newd_fished %>% add_predicted_draws(fec,
                                                re_formula = NULL,
                                                category='response',
+                                               allow_new_levels = TRUE,
+                                               seed = 10,
                                                ndraws = 1000)
 
 
@@ -99,7 +103,7 @@ for (i in 1:100) {
 # check to make sure it is a 70/30 split
 fished_count <- df_list[[1]] %>% filter(Geographic_Basin == "Central Indo-Pacific") %>%
   filter(Protection == "Fished")%>%
-  nrow()/687   ###70%
+  nrow()/689   ###70%
 unfished_count <- df_list[[1]] %>% filter(Geographic_Basin == "Tropical Atlantic") %>%
   filter(Protection == "UnfishedHigh")%>%
   nrow()/99   ###30%
@@ -117,6 +121,8 @@ for (i in 1:length(df_list)) {
   posts_30unfished <- df_list[[i]]%>% add_predicted_draws(fec,
                                                           re_formula = NULL,
                                                           category='response',
+                                                          allow_new_levels = TRUE,
+                                                          seed = 10,
                                                           ndraws = 1000)
   master[[i]] <- posts_30unfished
 }
@@ -133,14 +139,15 @@ medianDraws30Unfish <- lapply(master, TakeMedianDraws30Unfish)
 
 
 #Combine all df in the list to one df
-posts_30Unfished  <- Reduce(full_join, medianDraws30Unfish)
+posts_30Unfished  <- Reduce(rbind, medianDraws30Unfish)
 
-
+#save
+saveRDS(posts_30Unfished, "output/medians_posts_30percentUnfished.rda")
 
 #check output
 cent_indpacD <- posts_30Unfished %>% filter(Geographic_Basin == "Central Indo-Pacific")
 unfished_count <- cent_indpacD %>% filter(Protection == "UnfishedHigh")
-20600/68700
+20700/68900
 #30%
 
 
@@ -176,7 +183,7 @@ west_indpac <- (0 + 0 + 0.908 + 0 + 9.77 + 0 + 10.2)/7#2.98%
 
 #Geographic_Basin     count
 #<chr>                <int>
-#1 Central Indo-Pacific   687
+#1 Central Indo-Pacific   689
 #2 Eastern Indo-Pacific   623
 #3 Tropical Atlantic       99
 #4 Western Indo-Pacific   223
@@ -216,9 +223,9 @@ for (i in 1:100) {
 }
 
 #check
-a <- df_cent_indpac[[1]]
-Tunfished_cent_indpac <- filter(df_cent_indpac[[1]], Protection== "UnfishedHigh")
-40/687 *100
+a <- df_cent_indpac[[2]]
+Tunfished_cent_indpac <- filter(df_cent_indpac[[2]], Protection== "UnfishedHigh")
+40/689 *100
 #okay
 
 for (i in 1:100) {
@@ -237,7 +244,7 @@ for (i in 1:100) {
 #check
 Teast_indpac <- df_east_indpac[[5]] %>% filter(Geographic_Basin == "Eastern Indo-Pacific")
 Tunfished_east_indpac <- filter(Teast_indpac, Protection== "UnfishedHigh")
-23/623 *100
+23/622 *100
 #okay
 
 for (i in 1:100) {
@@ -323,7 +330,8 @@ pred_forMaster <- function(df_list, fec, file_names) {
   # Loop through data frames and add predicted draws
   for (i in 1:length(df_list)) {
     posts_unfished <- df_list[[i]] %>% 
-      add_predicted_draws(fec, re_formula = NULL, category='response', ndraws = 1000)
+      add_predicted_draws(fec, re_formula = NULL, category='response', seed = 10,ndraws = 1000,
+                          allow_new_levels = TRUE)
     # Store result in master list
     master[[i]] <- posts_unfished
   }
@@ -335,7 +343,7 @@ pred_forMaster <- function(df_list, fec, file_names) {
   median <- list()
   
   # Merge data frames in medianDraws
-  median[[i]] <- Reduce(full_join, medianDraws)
+  median[[i]] <- Reduce(rbind, medianDraws)
   
 }
 
@@ -354,14 +362,14 @@ for (i in 1:length(lists_to_run)) {
 #have a look at the individual dataframes
 a <- df_cent_indpac[[1]]
 b <- df_cent_indpac[[1]]%>% filter(Protection == "UnfishedHigh")
-40/687
+40/689
 
 test <- df_cent_indpac[[1]]%>% 
-  add_predicted_draws(fec, re_formula = NULL, category='response', ndraws = 1000)
+  add_predicted_draws(fec, re_formula = NULL, category='response',seed = 10, ndraws = 1000)
 mTest <- TakeMedianDraws(test)
 
 test2 <- df_cent_indpac[[2]]%>% 
-  add_predicted_draws(fec, re_formula = NULL, category='response', ndraws = 1000)
+  add_predicted_draws(fec, re_formula = NULL, category='response', seed = 10,ndraws = 1000)
 
 test3 <- rbind(test, test2)
 test4 <- test3 %>% group_by(Larger, ReefCluster)
@@ -386,7 +394,7 @@ master_east_indpac <- readRDS("output/master_east_indpac.rda")
 master_trop_at <- readRDS("output/master_trop_at.rda")
 master_west_indpac <- readRDS("output/master_west_indpac.rda")
 
-#posts_30Unfished <- readRDS("output/medians_posts_30percentUnfished.rda")
+posts_30Unfished <- readRDS("output/medians_posts_30percentUnfished.rda")
 
 
 
@@ -398,7 +406,9 @@ master_west_indpac <- readRDS("output/master_west_indpac.rda")
 
 #check they are the right percentages
 master_cent_indpac  %>% group_by(Protection) %>% summarise(count = n()) #5.8
-master_east_indpac  %>% group_by(Protection) %>% summarise(count = n()) #3.6
+4000/(64900+4000)
+master_east_indpac  %>% group_by(Protection) %>% summarise(count = n()) #3.7
+2300/(59900+2300)
 master_trop_at  %>% group_by(Protection) %>% summarise(count = n())#1
 master_west_indpac   %>% group_by(Protection) %>% summarise(count = n()) #3.1
 # yes
@@ -406,10 +416,11 @@ master_west_indpac   %>% group_by(Protection) %>% summarise(count = n()) #3.1
 
 #merge into 1 df
 posts_gb <- rbind(master_cent_indpac, master_east_indpac, master_trop_at, master_west_indpac)
-posts_gb <- unique(posts_gb)
+#posts_gb <- unique(posts_gb)
 
 ###################################################################################################################
 #get the percent differences between the median fecundity of each and write a summary df
+
 posts_gb1 <- subset(posts_gb, select = c("ID", "Larger", "ReefCluster", "Geographic_Basin", "medianPrediction"))
 names(posts_gb1) <- c("ID","Larger","ReefCluster", "Geographic_Basin", "postsProtectionByGB")
 posts_gb1 <- as.data.frame(posts_gb1)
@@ -421,28 +432,42 @@ posts_30Unfished1 <- as.data.frame(posts_30Unfished1)
 summary2 <- posts_30Unfished1 %>% group_by(Geographic_Basin) %>% summarise(median_posts30Unfished = median(posts30Unfished))
 summary2 <- posts_30Unfished1 %>% group_by(Geographic_Basin) %>% median_qi(posts30Unfished)
 
+#exponentiate 
+posts_30Unfished1$posts30Unfished <- exp(posts_30Unfished1$posts30Unfished)-1
+posts_gb1$postsProtectionByGB <- exp(posts_gb1$postsProtectionByGB)-1
 
-#Now get percent difference
-#arrange first
+
+#combine by order
+percent <-median_qi(((posts_30Unfished1$posts30Unfished - posts_gb1$postsProtectionByGB)/
+                       posts_gb1$postsProtectionByGB)*100)
 posts_gb1 <- posts_gb1 %>% group_by(ID, Larger, ReefCluster) %>% arrange(postsProtectionByGB, .by_group = TRUE)
 posts_30Unfished1 <- posts_30Unfished1%>% group_by(ID, Larger, ReefCluster) %>% arrange(posts30Unfished, .by_group = TRUE)
 
-#now combine the df by order
+
 posts_30GB <- data.frame(ID=posts_gb1$ID, Larger=posts_gb1$Larger, ReefCluster=posts_gb1$ReefCluster, 
                          Geographic_Basin=posts_gb1$Geographic_Basin, postsGB = posts_gb1$postsProtectionByGB,
                          posts30 = posts_30Unfished1$posts30Unfished)
-
-#percent gains without grouping 
-summary_perc_gain <-posts_30GB %>% group_by(Geographic_Basin) %>%
-  summarise(percent_gain = ((median(exp(posts30)-1) - median(exp(postsGB)-1)) / median(exp(postsGB)-1)) *100)
-
-
-
-
-#################################################################################################################################################
-#####################################                                PREP FOR FIGURES                       #####################################
-#################################################################################################################################################
-
+posts_30GB$ratio <- (posts_30GB$posts30)/(posts_30GB$postsGB)
+posts_30GB$percent_diff <- ((posts_30GB$posts30 - posts_30GB$postsGB) / posts_30GB$postsGB) *100
+median(na.omit(posts_30GB$percent_diff ))
+summary_perc_gain <-na.omit(posts_30GB) %>% group_by(Geographic_Basin) %>%
+  summarise(percent_gain = ((median(posts30) - median(postsGB)) / median(postsGB)) *100,
+            median_posts30 = median(posts30),
+            median_postsGB = median(postsGB),
+            median_posts30_log = log(median_posts30+1),
+            median_postsGB_log = log(median_postsGB+1),
+            difference= (median(posts30) - median(postsGB)),
+            difference_log = log(difference + 1))
+posts_30GB$all <- "all"
+summary_perc_gain2 <-na.omit(posts_30GB) %>% group_by(all) %>%
+  summarise(percent_gain = ((median(posts30) - median(postsGB)) / median(postsGB)) *100,
+            median_posts30 = median(posts30),
+            median_postsGB = median(postsGB),
+            median_posts30_log = log(median_posts30+1),
+            median_postsGB_log = log(median_postsGB+1),
+            difference= (median(posts30) - median(postsGB)),
+            difference_log = log(difference + 1)) %>% rename(Geographic_Basin = all)
+summary_perc_gain <- rbind(summary_perc_gain, summary_perc_gain2)
 
 #add order to df
 posts_30GB<- posts_30GB %>% mutate(orderFig = case_when(
@@ -451,6 +476,7 @@ posts_30GB<- posts_30GB %>% mutate(orderFig = case_when(
   Geographic_Basin == "Eastern Indo-Pacific" ~ 3,
   Geographic_Basin == "Central Indo-Pacific" ~ 4))
 
+#add percentages
 posts_30GB<- posts_30GB %>% mutate(label = case_when(
   Geographic_Basin == "Tropical Atlantic" ~ "Tropical Atlantic \n0.77% to 30% protection",
   Geographic_Basin == "Western Indo-Pacific" ~ "Western Indo-Pacific \n2.98% to 30% protection",
@@ -458,21 +484,15 @@ posts_30GB<- posts_30GB %>% mutate(label = case_when(
   Geographic_Basin == "Central Indo-Pacific" ~ "Central Indo-Pacific \n5.76% to 30% protection"))
 
 
-#mean percent difference by grouping
-posts_30GB_mean <- posts_30GB %>% group_by(Geographic_Basin) %>% 
-  summarise(meanGB = mean(exp(postsGB)-1),
-            mean30= mean(exp(posts30)-1),
+posts_30GB_mean <- posts_30GB %>% group_by(Geographic_Basin, Larger, ReefCluster, ID, label, orderFig) %>% 
+  summarise(meanGB = mean(postsGB),
+            mean30= mean(posts30),
             percent_diff = (((mean30 - meanGB)/meanGB)*100))
 
-
-posts_30GB_mean <- posts_30GB %>% group_by(ID, Geographic_Basin, Larger, ReefCluster, label, orderFig) %>% 
-  summarise(meanGB = mean(exp(postsGB)-1),
-         mean30= mean(exp(posts30)-1),
-         percent_diff = (((mean30 - meanGB)/meanGB)*100))
+posts_30GB_mean$percent_diff
 
 
 #save
-saveRDS(posts_30GB,  "output/fecundity_potential_mean_GB_allfish2.rds")
-saveRDS(posts_30GB_mean,  "output/30x30/fecundity_potential_mean_GB_allfish2.rds")
+saveRDS(posts_30GB_mean,  "output/fecundity_potential_mean_GB_allfish.rds")
 
 

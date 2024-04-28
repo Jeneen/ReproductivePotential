@@ -10,8 +10,8 @@ allMatF <- readRDS("output/sampledFemales_1000.rds")
 mature <- lapply(allMatF, function(x) filter(x, prob_mat > 0))
 
 #check unique sites
-site_df <- as.data.frame(mature[8])
-site_df <- unique(site_df$UniqueSite) #between 1640-1642, dropped if no mat f
+site_df <- as.data.frame(mature[10])
+site_df <- unique(site_df$UniqueSite) #between 1640-1644, dropped if no mat f
 
 #get site average
 groupT <- function (mature){

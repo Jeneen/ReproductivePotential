@@ -1,7 +1,7 @@
 #supplementary analysis - size and fecundity classes, prep data
 #load models
-fec <- readRDS("output/brms_fecundity.rds")
-fec_biom_ind_fish <- readRDS("output/extrapolated_sp_biomass_fecundity.rds")
+fec <- readRDS("output/brms_fecundity_se.rds")
+matf_df <- readRDS("output/SERF_biomass_matureF.rds")
 
 #First calculate total MF biomass at each site
 #load dataframe with fish biomass (all fish, 
@@ -55,12 +55,12 @@ dat$UniqueSite <- as.factor(dat$UniqueSite)
 
 #proportion of the biomass mature individuals 
 biom_mature <- readRDS("output/SERF_biomass_matureF.rds")
-biom_immature <- biom_immature %>% group_by(UniqueSite, UniqueTransect) %>%
-  mutate(number_immature = sum(Number*prob_mat),
+biom_mature <- biom_mature %>% group_by(UniqueSite, UniqueTransect) %>%
+  mutate(number_mature = sum(Number*prob_mat),
             total_number = sum(Number),
-            proportion_immature = number_immature/total_number)
+            proportion_mature = number_mature/total_number)
 
-biom_mature <- biom_immature %>% group_by(UniqueSite, UniqueTransect) %>%
+biom_mature <- biom_mature %>% group_by(UniqueSite, UniqueTransect) %>%
                                    summarise(number_mature = sum(Number*prob_mat),
                                              total_number = sum(Number),
                                              proportion_mature = number_mature/total_number)
@@ -72,7 +72,7 @@ saveRDS(biomPropMature, "output/proportionMature.rds")
 
 
 #get distribution of fecundity values, seperate into 3 categories (low, med, high)
-allMatF <- readRDS("Output/subsetting_sex_lm/allF.rds")
+allMatF <-readRDS("output/sampledFemales_1000.rds")
 
 matureFilter <- function (allMatF){
   mature <- allMatF %>% mutate(mu2 = ifelse(prob_mat > 0, mu,  0),
@@ -82,6 +82,9 @@ matureFilter <- function (allMatF){
 }
 
 mature <- lapply(allMatF, matureFilter)
+
+#add back in total length by merging with original df 
+mature <- lapply(mature, function(df) inner_join(df, matf_df))
 
 
 #split sizes into 3 categories - find the range
@@ -304,7 +307,7 @@ saveRDS(largeMatFMed, "output/LARGE_SIZE_site_fecundity_med1000samp.rds")
 #calculate relative biomass of each of the categories
 dat <- readRDS("output/alldata_SDandCIof1000_clean_cinner2020.rda")
 
-#smallMatFMed <- readRDS("outptut/SMALL_SIZE_site_fecundity_med10-0samp.rds")
+#smallMatFMed <- readRDS("outptut/SMALL_SIZE_site_fecundity_med1000samp.rds")
 #medMatFMed <- readRDS("output/MED_SIZE_site_fecundity_med1000samp.rds")
 #largeMatFMed <- readRDS("output/LARGE_SIZE_site_fecundity_med1000samp.rds")
 
@@ -340,10 +343,6 @@ ggplot(data = relDat) +
   geom_smooth(aes(x = log(MeanAllFishBiomassKgHa+1), y = SmallProp), color = "red")+
   geom_smooth(aes(x = log(MeanAllFishBiomassKgHa+1), y = MedProp),  color = "blue")+
   geom_smooth(aes(x = log(MeanAllFishBiomassKgHa+1), y = LargeProp), color = "dark green")
-relDat$DifferenceTotalBiomMatFBiom <- relDat$MeanAllFishBiomassKgHa - relDat$BiomassMedian 
-relDat$PropMatureFemaleBiom <- relDat$BiomassMedian/relDat$MeanAllFishBiomassKgHa
-ggplot(data = relDat, aes(x = MeanAllFishBiomassKgHa, y = PropMatureFemaleBiom))+
-  geom_smooth()
 
 #save rds
 saveRDS(relDat, "output/SizeProportions_site_fecundity_med1000samp.rds")

@@ -33,21 +33,7 @@ merge_fec_with_serf_unique <- function(fec_list, serf_df) {
 # Merge each dataframe in fec_extrap with serf_matF and keep only unique rows
 all <- merge_fec_with_serf_unique(fec_extrap, serf_matF) 
 
-#saveRDS(all, "Output/sex_ratio/merged_fec_sex_ratio.rds")
-all <- readRDS("Output/sex_ratio/merged_fec_sex_ratio.rds") 
-
-#check unique sites
-a <- as.data.frame(all[1000])
-sites_a <- as.data.frame(unique(as.factor(a$UniqueSite)))
-names(sites_a) <- "UniqueSite"
-alldata <- readRDS("Output/reproductive_potential_serf/alldata_clean_cinner2020.rda")
-missing <- filter(alldata, UniqueSite %!in% sites_a$UniqueSite)
-#none missing
-
-
-##########
-all <- readRDS("output/merged_fec_sex_ratio.rds")
-
+#saveRDS(all, "output/merged_fec_sex_ratio.rds")
 
 
 #final
@@ -55,8 +41,11 @@ all <- readRDS("output/merged_fec_sex_ratio.rds")
 process_and_sample <- function(df, index, total) {
   message(sprintf("Processing dataframe %d of %d", index, total))
   
+  # Drop NA values in the sex_ratio column (records without spp names or families dropped from analysis)
+  df <- df %>% filter(!is.na(sex_ratio))
+  
   # Uncount based on 'Number' and set necessary columns
-  df <- uncount(df, weights = df$Number) 
+  df <- uncount(df, weights = Number) 
   df$species <- as.factor(df$species)
   df$UniqueTransect <- as.factor(df$UniqueTransect)
   df$sex_ratio <- as.numeric(df$sex_ratio)
@@ -68,7 +57,8 @@ process_and_sample <- function(df, index, total) {
   
   sample_group <- function(df) {
     if (nrow(df) > 1) {
-      mean_ratio <- mean(df$sex_ratio, na.rm = TRUE)
+      mean_ratio <- mean(df$sex_ratio)
+      set.seed(1)
       df %>% slice_sample(prop = mean_ratio)
     } else {
       return(df)
@@ -85,7 +75,8 @@ process_and_sample <- function(df, index, total) {
 # Total number of dataframes to process
 total_dfs <- length(all)
 
-# Apply the function to each dataframe in the list 'all' with progress update
+# Apply the function to each dataframe in the list 'all' with progress update 
+# takes a while to run
 sampledFemales <- map2(all, seq_along(all), ~process_and_sample(.x, .y, total_dfs))
 sites <- as.data.frame(sampledFemales[1])
 sites <- filter(sites, prob_mat > 0)

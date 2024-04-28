@@ -1,7 +1,7 @@
 #set colors
 protcols <- c("Fished" = "red", "Restricted" = "darkorange", "UnfishedHigh" = "darkgreen")
 mycolours = rev(paletteer_c("scico::broc", 10))
-mycolours = mycolours[3:7]
+mycolours = mycolours[c(3:6, 10)]
 
 #set theme
 theme <-  theme(panel.border = element_blank(),
@@ -38,22 +38,23 @@ posts<-pred %>%
   add_predicted_draws(fec,
                       re_formula = NULL, #include all group level effects
                       category='response',
-                      ndraws = 1000)
+                      ndraws = 4000,
+                      seed =1203)
 
 #get medians of geographic basin
 meds <- posts %>% group_by(ReefCluster, Larger)  %>% 
-              summarize(median_pred=median(.prediction)) 
+              dplyr::summarize(median_pred=median(.prediction)) 
 meds2 <- unique(data.frame(Larger = dat$Larger, ReefCluster = dat$ReefCluster,
                     Geographic_Basin = dat$Geographic_Basin))
 meds <- inner_join(meds, meds2)
 meds_summary <- meds %>% group_by(Geographic_Basin) %>% median_qi(median_pred)
-saveRDS(meds_summary, "Output/results summary/median_marginal_fecundity_geographic_basin.rds")
+saveRDS(meds_summary, "output/median_marginal_fecundity_geographic_basin.rds")
 
 
 #Make a table for grouping by protection
 meds <- posts %>% group_by(ReefCluster, Larger, Protection)  %>% 
-  summarize(median_pred=median(.prediction)) 
-counts <- dat %>% group_by(Geographic_Basin, Protection) %>% summarize(n = n())
+  dplyr::summarize(median_pred=median(.prediction)) 
+counts <- dat %>% group_by(Geographic_Basin, Protection) %>% dplyr::summarize(n = n())
 meds2 <- unique(data.frame(Larger = dat$Larger, ReefCluster = dat$ReefCluster,
                            Geographic_Basin = dat$Geographic_Basin, Protection = dat$Protection))
 meds <- inner_join(meds, meds2)
@@ -61,7 +62,7 @@ meds_summary <- meds %>% group_by(Geographic_Basin, Protection) %>% median_qi(me
 meds_summary_count <- inner_join(counts, meds_summary)
 
 tab_df(meds_summary_count, title = "Supplementary Table 1. Median marginal fecundity (log + 1) by marine ecoregion and protection",
-       file="Output/results summary/supp_median_fecundityByGB&Protection_summary.doc") 
+       file="output/supp_median_fecundityByGB&Protection_summary.doc") 
 #plot
 mapWorld <- map_data('world', wrap=c(-25,335), ylim=c(-55,75))
 
