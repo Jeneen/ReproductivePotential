@@ -1,7 +1,6 @@
 #data
 site_fecundity <- readRDS("output/siteFecundBiomass_1000.rds")
 alldata_df=read.csv("data/SERF_SiteData.csv", header = T)
-old <- readRDS("alldata_clean_cinner2020.rda")
 
 #merge
 merge_with_alldata <- function(df) {
