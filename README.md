@@ -16,11 +16,11 @@ To reproduce the main analyses, run the R scripts:
 
 However, please note that the following scripts may need to be run on an HPC:
 
-[04_SppTempMod.R](https://github.com/Jeneen/ReproductivePotential/blob/main/scripts/04_SppTempMod.R){.uri}
+[04_SppTempMod.R](https://github.com/Jeneen/ReproductivePotential/blob/main/scripts/04_SppTempMod.R)
 
-[06_SexRatioMod.R](https://github.com/Jeneen/ReproductivePotential/blob/main/scripts/06_SexRatioMod.R){.uri}
+[06_SexRatioMod.R](https://github.com/Jeneen/ReproductivePotential/blob/main/scripts/06_SexRatioMod.R)
 
-[08_BarnecheFecMod.R](https://github.com/Jeneen/ReproductivePotential/blob/main/scripts/08_BarnecheFecMod.R){.uri}
+[08_BarnecheFecMod.R](https://github.com/Jeneen/ReproductivePotential/blob/main/scripts/08_BarnecheFecMod.R)
 
 ------------------------------------------------------------------------
 
