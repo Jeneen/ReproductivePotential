@@ -9,13 +9,8 @@ model_paths <- c("output/lmat_model_out.rds", "output/sex_phy_model_noprotog.rds
                  "output/SERRANIDAE_brms_fecundity.rds", "output/SCARIDAE_brms_fecundity_hurdlelog.rds",
                  "output/SCARIDAE_brms_fecundity.rds", "output/LUTJANIDAE_brms_fecundity_hurdlelog.rds",
                  "output/LUTJANIDAE_brms_fecundity.rds")
-tab_df(meds_summary_count, title = "Supplementary Table 1. Median marginal fecundity (log + 1) by marine ecoregion and protection",
-       file="output/supp_median_fecundityByGB&Protection_summary.doc") 
-sink("summary.txt")
-summary(model)
-sink()
 
-model_paths <- c("output/brms_20cmBiomass.rds", "output/brms_fecundity_se.rds")
+
 
 #function
 load_and_prepare_plots <- function(model_path, plot_title) {
@@ -24,7 +19,7 @@ load_and_prepare_plots <- function(model_path, plot_title) {
   
   # Diagnostic plot (as ggplot)
   model_traceplot <- bayesplot::mcmc_trace(model, facet_args = list(ncol = 3),
-                                           pars = vars(b_Intercept:sigma)) + 
+                                           pars = vars(1:8)) + 
     ggtitle(paste("Trace Plot -", plot_title))+
     theme(plot.title = element_text(hjust = 0.5, vjust = -0.5))
   
@@ -52,38 +47,34 @@ invisible(lapply(model_paths, function(path) {
 dev.off()
 
 #save summary data
-
-#summary data function
-load_and_get_summary_sjplot <- function(model_path) {
+load_and_capture_summary <- function(model_path) {
+  # Load the model from the saved RDS file
   model <- readRDS(model_path)
-  # Use sjPlot to create a summary table
-  tab_model <- tab_model(model)
-  return(tab_model)
+  
+  # Use capture.output to grab the summary text
+  summary_text <- capture.output(summary(model))
+  
+  return(summary_text)
 }
 
 
-# Create a new Word document
-doc <- read_docx()
+# Create a new workbook
+wb <- createWorkbook()
 
-# Process each model, create a summary table and add it to the Word document
+# Process each model
 for (path in model_paths) {
-  # Generate summary using sjPlot
-  tab <- load_and_get_summary_sjplot(path)
+  # Generate the summary text using the function
+  summary_text <- load_and_capture_summary(path)
   
-  # Add a section header with the model name or description
-  doc <- doc %>% 
-    body_add_par(text = gsub("output/", "", tools::file_path_sans_ext(basename(path))), style = "heading 1") 
+  # Get a valid sheet name by truncating to the first 30 characters
+  sheet_name <- substr(tools::file_path_sans_ext(basename(path)), 1, 30)
   
-  # Since sjPlot generates HTML tables, we need to convert them to a format that can be inserted into a Word doc
-  # Save the HTML content to a temporary file
-  html_file <- tempfile(fileext = ".html")
-  writeLines(as.character(tab), html_file)
+  # Add a new worksheet for each model summary
+  addWorksheet(wb, sheet_name)
   
-  text_content <- markdown::markdownToHTML(html_file)
-  
-  doc <- doc %>%
-    body_add_par(text = readLines(text_content), style = "Normal")
+  # Write the summary text to the new sheet, one line per row
+  writeData(wb, sheet_name, x = as.data.frame(summary_text), startCol = 1, startRow = 1)
 }
 
-# Save the Word document
-print(doc, target = "output/model_summaries.docx")
+# Save the workbook
+saveWorkbook(wb, "output/model_summaries.xlsx", overwrite = TRUE)
