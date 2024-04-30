@@ -1,8 +1,3 @@
----
-editor_options: 
-  markdown: 
-    wrap: 72
----
 
 Data and code required to reproduce analyses for the manuscript:
 
@@ -30,10 +25,10 @@ ecological benefits of the 30x30 global conservation target and showcase
 management options to promote the sustainability of population
 replenishment.
 
----
+------------------------------------------------------------------------
 
 \
-sessionInfo() \
+sessionInfo()\
 R version 4.3.3 (2024-02-29) Platform: aarch64-apple-darwin20 (64-bit)
 Running under: macOS Sonoma 14.4.1
 
