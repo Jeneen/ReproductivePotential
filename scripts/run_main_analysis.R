@@ -8,6 +8,18 @@ clear_environment_keep_functions <- function() {
   }
 }
 
+# Load libraries
+# List of all packages
+packages <- c("readr", "plyr", "tidyverse", "rfishbase", "fishtree", "ape", "Hmisc", "brms",
+              "dplyr", "fields", "ncdf4", "tidybayes", "picante", "parallel", "broom", "sp", "purrr", 
+              "viridis", "RColorBrewer", "ggrepel", "stringr", "ggbeeswarm", "lme4", "paletteer",
+              "scales", "patchwork", "grid", "cowplot", "devtools", "reshape2", "janitor", "sjPlot", 
+              "ggplotify", "openxlsx")
+
+# Loop to load each package
+sapply(packages, library, character.only = TRUE)
+
+
 # List of scripts to run in order
 scripts <- c(
   "scripts/00_functions.R", # loads packages and functions
