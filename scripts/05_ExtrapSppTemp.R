@@ -15,7 +15,8 @@ dup <- filter(species_list, duplicated(genus_sp))
 #check vars for extraction
 get_variables(fit_lm)
 
-#Extrap script adapted from https://github.com/valerianoparravicini/Trophic_Fish_2020
+#All extrap scripts adapted from https://github.com/valerianoparravicini/Trophic_Fish_2020
+#Parravicini et al. 2020, Plos Biology 
 r_phylo <- tidybayes::spread_draws(fit_lm, r_Species[species,Intercept])
 b <- tidybayes::spread_draws(fit_lm, b_temp_scaled,  b_Intercept, r_Species[species,temp_scaled])
 r_sp_tree <- tidybayes::spread_draws(fit_lm, r_species_tree[species,Intercept])
