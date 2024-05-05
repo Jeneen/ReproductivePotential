@@ -14,7 +14,7 @@ packages <- c("readr", "plyr", "tidyverse", "rfishbase", "fishtree", "ape", "Hmi
               "dplyr", "fields", "ncdf4", "tidybayes", "picante", "parallel", "broom", "sp", "purrr", 
               "viridis", "RColorBrewer", "ggrepel", "stringr", "ggbeeswarm", "lme4", "paletteer",
               "scales", "patchwork", "grid", "cowplot", "devtools", "reshape2", "janitor", "sjPlot", 
-              "ggplotify", "openxlsx")
+              "ggplotify", "openxlsx", 'gdistance', "rgeos")
 
 # Loop to load each package
 sapply(packages, library, character.only = TRUE)

@@ -10,13 +10,19 @@
 
 [run_main_analysis.R](https://github.com/Jeneen/ReproductivePotential/blob/main/scripts/run_main_analysis.R)
 
-However, please note that the following scripts *may* need to be run on a supercomputer:
+However, please note that the following scripts *may* need to be run on a High Performance Computing Cluster:
 
-[04_SppTempMod.R](https://github.com/Jeneen/ReproductivePotential/blob/main/scripts/04_SppTempMod.R)
+[04_SppTempMod.R](https://github.com/Jeneen/ReproductivePotential/blob/main/scripts/04_SppTempMod.R) (\~2 days)
 
-[06_SexRatioMod.R](https://github.com/Jeneen/ReproductivePotential/blob/main/scripts/06_SexRatioMod.R)
+[06_SexRatioMod.R](https://github.com/Jeneen/ReproductivePotential/blob/main/scripts/06_SexRatioMod.R) (\~2 days)
 
-[08_BarnecheFecMod.R](https://github.com/Jeneen/ReproductivePotential/blob/main/scripts/08_BarnecheFecMod.R)
+[08_BarnecheFecMod.R](https://github.com/Jeneen/ReproductivePotential/blob/main/scripts/08_BarnecheFecMod.R) (\~2 days)
+
+The following scripts are also computationally expensive and may take \~ 1 day to run:
+
+[10_ExtrapFecund.R](https://github.com/Jeneen/ReproductivePotential/blob/main/scripts/10_ExtrapFecund.R) (\~ several hours)
+
+[11_SampleBySexRatio.R](https://github.com/Jeneen/ReproductivePotential/blob/main/scripts/11_SampleBySexRatio.R) (\~ several hours)
 
 ------------------------------------------------------------------------
 

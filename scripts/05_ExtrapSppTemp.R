@@ -57,7 +57,7 @@ tree2 <- tree
 tip <- as.data.frame(tree2$tip.label)
 names(tip) <- "tip.label"
 drop <- tip %>% filter(tip.label %!in% species_list$genus_sp)
-tree2 <- drop.tip(tree2, drop)
+tree2 <- drop.tip(tree2, drop$tip.label)
 tip <- as.data.frame(tree2$tip.label)
 names(tip) <- "genus_species"
 tip <- unique(tip)
