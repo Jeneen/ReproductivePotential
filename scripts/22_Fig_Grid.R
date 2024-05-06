@@ -17,12 +17,9 @@ alldata <- readRDS("output/alldata_SDandCIof1000_clean_cinner2020.rda")
 
 #all figs
 den_plot <- readRDS(file="output/fec_distribution_fig.rds")
-#fec_vs_biom <- readRDS("output/raw_fec_vs_biom.rds")
 leg <- readRDS("output/prot_leg.rds")
 marg_fec_map <- readRDS("output/map_margCateg_fec.rds")
-#country_intercept_fig <- readRDS("output/country_intercept_fig.rds")
 linear_fig <- readRDS("output/power_law_linear_fig.rds")
-#int_fig <- readRDS("output/top_int_dist_fig.rds")
 
 
 #make grid
