@@ -1,7 +1,7 @@
 #load files 
 fit <- readRDS("output/fecundity_model.rds")
 tree <- ape::read.tree("data/grafted_tree.tre")
-data <- readRDS("data/barneche_data_processed.rds")
+data <- readRDS("data/fecundity.rds")
 matureF <- readRDS("output/SERF_biomass_matureF.rds") #df to extrapolate
 
 #clean dfs
