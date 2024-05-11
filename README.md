@@ -68,16 +68,16 @@ attached base packages:
 [1] grid      parallel  stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] rgeos_0.6-4        gdistance_1.6.4    igraph_2.0.3       raster_3.6-26      openxlsx_4.2.5.2  
- [6] ggplotify_0.1.2    sjPlot_2.8.15      janitor_2.2.0      reshape2_1.4.4     devtools_2.4.5    
-[11] usethis_2.2.3      cowplot_1.1.3      patchwork_1.2.0    scales_1.3.0       paletteer_1.6.0   
-[16] lme4_1.1-35.3      Matrix_1.6-5       ggbeeswarm_0.7.2   ggrepel_0.9.5      RColorBrewer_1.1-3
-[21] viridis_0.6.5      sp_2.1-4           broom_1.0.5        picante_1.8.2      nlme_3.1-164      
-[26] vegan_2.6-4        lattice_0.22-5     permute_0.9-7      tidybayes_3.0.6    ncdf4_1.22        
-[31] fields_15.2        viridisLite_0.4.2  spam_2.10-0        brms_2.21.0        Rcpp_1.0.12       
-[36] Hmisc_5.1-2        ape_5.8            fishtree_0.3.4     rfishbase_4.1.2    lubridate_1.9.3   
-[41] forcats_1.0.0      stringr_1.5.1      dplyr_1.1.4        purrr_1.0.2        tidyr_1.3.1       
-[46] tibble_3.2.1       ggplot2_3.5.0      tidyverse_2.0.0    plyr_1.8.9         readr_2.1.5       
+ [1] terra_1.7-71       openxlsx_4.2.5.2   ggplotify_0.1.2    sjPlot_2.8.15      janitor_2.2.0     
+ [6] reshape2_1.4.4     devtools_2.4.5     usethis_2.2.3      cowplot_1.1.3      patchwork_1.2.0   
+[11] scales_1.3.0       paletteer_1.6.0    lme4_1.1-35.3      Matrix_1.6-5       ggbeeswarm_0.7.2  
+[16] ggrepel_0.9.5      RColorBrewer_1.1-3 viridis_0.6.5      sp_2.1-4           broom_1.0.5       
+[21] picante_1.8.2      nlme_3.1-164       vegan_2.6-4        lattice_0.22-5     permute_0.9-7     
+[26] tidybayes_3.0.6    ncdf4_1.22         fields_15.2        viridisLite_0.4.2  spam_2.10-0       
+[31] brms_2.21.0        Rcpp_1.0.12        Hmisc_5.1-2        ape_5.8            fishtree_0.3.4    
+[36] rfishbase_4.1.2    lubridate_1.9.3    forcats_1.0.0      stringr_1.5.1      dplyr_1.1.4       
+[41] purrr_1.0.2        tidyr_1.3.1        tibble_3.2.1       ggplot2_3.5.0      tidyverse_2.0.0   
+[46] plyr_1.8.9         readr_2.1.5       
 
 loaded via a namespace (and not attached):
   [1] svUnit_1.0.6         splines_4.3.3        later_1.3.2          rpart_4.1.23        
@@ -87,27 +87,26 @@ loaded via a namespace (and not attached):
  [17] pkgbuild_1.4.4       DBI_1.2.2            minqa_1.2.6          multcomp_1.4-25     
  [21] maps_3.4.2           abind_1.4-5          pkgload_1.3.4        yulab.utils_0.1.4   
  [25] nnet_7.3-19          TH.data_1.1-2        tensorA_0.36.2.1     sandwich_3.1-0      
- [29] inline_0.3.19        terra_1.7-71         performance_0.11.0   bridgesampling_1.1-2
- [33] codetools_0.2-19     tidyselect_1.2.1     bayesplot_1.11.1     ggeffects_1.5.2     
- [37] matrixStats_1.3.0    stats4_4.3.3         base64enc_0.1-3      jsonlite_1.8.8      
- [41] ellipsis_0.3.2       Formula_1.2-5        survival_3.5-8       emmeans_1.10.1      
- [45] tools_4.3.3          progress_1.2.3       glue_1.7.0           gridExtra_2.3       
- [49] xfun_0.43            mgcv_1.9-1           distributional_0.4.0 loo_2.7.0           
- [53] withr_3.0.0          fastmap_1.1.1        boot_1.3-29          fansi_1.0.6         
- [57] digest_0.6.35        gridGraphics_0.5-1   timechange_0.3.0     R6_2.5.1            
- [61] mime_0.12            estimability_1.5     colorspace_2.1-0     utf8_1.2.4          
- [65] generics_0.1.3       data.table_1.15.4    prettyunits_1.2.0    htmlwidgets_1.6.4   
- [69] pkgconfig_2.0.3      gtable_0.3.4         htmltools_0.5.8.1    profvis_0.3.8       
- [73] dotCall64_1.1-1      posterior_1.5.0      snakecase_0.11.1     knitr_1.45          
- [77] rstudioapi_0.16.0    tzdb_0.4.0           coda_0.19-4.1        checkmate_2.3.1     
- [81] curl_5.2.1           nloptr_2.0.3         cachem_1.0.8         zoo_1.8-12          
- [85] sjlabelled_1.2.0     miniUI_0.1.1.1       vipor_0.4.7          foreign_0.8-86      
- [89] pillar_1.9.0         vctrs_0.6.5          urlchecker_1.0.1     promises_1.3.0      
- [93] dbplyr_2.5.0         arrayhelpers_1.1-0   xtable_1.8-4         cluster_2.1.6       
- [97] beeswarm_0.4.0       htmlTable_2.4.2      evaluate_0.23        mvtnorm_1.2-4       
-[101] cli_3.6.2            compiler_4.3.3       rlang_1.1.3          crayon_1.5.2        
-[105] rstantools_2.4.0     modelr_0.1.11        rematch2_2.1.2       sjmisc_2.8.9        
-[109] fs_1.6.3             stringi_1.8.3        rstan_2.32.6         QuickJSR_1.1.3      
-[113] munsell_0.5.1        bayestestR_0.13.2    Brobdingnag_1.2-9    V8_4.4.2            
-[117] sjstats_0.18.2       hms_1.1.3            shiny_1.8.1.1        memoise_2.0.1       
-[121] RcppParallel_5.1.7  
+ [29] inline_0.3.19        performance_0.11.0   bridgesampling_1.1-2 codetools_0.2-19    
+ [33] tidyselect_1.2.1     bayesplot_1.11.1     ggeffects_1.5.2      matrixStats_1.3.0   
+ [37] stats4_4.3.3         base64enc_0.1-3      jsonlite_1.8.8       ellipsis_0.3.2      
+ [41] Formula_1.2-5        survival_3.5-8       emmeans_1.10.1       tools_4.3.3         
+ [45] progress_1.2.3       glue_1.7.0           gridExtra_2.3        xfun_0.43           
+ [49] mgcv_1.9-1           distributional_0.4.0 loo_2.7.0            withr_3.0.0         
+ [53] fastmap_1.1.1        boot_1.3-29          fansi_1.0.6          digest_0.6.35       
+ [57] gridGraphics_0.5-1   timechange_0.3.0     R6_2.5.1             mime_0.12           
+ [61] estimability_1.5     colorspace_2.1-0     utf8_1.2.4           generics_0.1.3      
+ [65] data.table_1.15.4    prettyunits_1.2.0    htmlwidgets_1.6.4    pkgconfig_2.0.3     
+ [69] gtable_0.3.4         htmltools_0.5.8.1    profvis_0.3.8        dotCall64_1.1-1     
+ [73] posterior_1.5.0      snakecase_0.11.1     knitr_1.45           rstudioapi_0.16.0   
+ [77] tzdb_0.4.0           coda_0.19-4.1        checkmate_2.3.1      curl_5.2.1          
+ [81] nloptr_2.0.3         cachem_1.0.8         zoo_1.8-12           sjlabelled_1.2.0    
+ [85] miniUI_0.1.1.1       vipor_0.4.7          foreign_0.8-86       pillar_1.9.0        
+ [89] vctrs_0.6.5          urlchecker_1.0.1     promises_1.3.0       dbplyr_2.5.0        
+ [93] arrayhelpers_1.1-0   xtable_1.8-4         cluster_2.1.6        beeswarm_0.4.0      
+ [97] htmlTable_2.4.2      evaluate_0.23        mvtnorm_1.2-4        cli_3.6.2           
+[101] compiler_4.3.3       rlang_1.1.3          crayon_1.5.2         rstantools_2.4.0    
+[105] modelr_0.1.11        rematch2_2.1.2       sjmisc_2.8.9         fs_1.6.3            
+[109] stringi_1.8.3        rstan_2.32.6         QuickJSR_1.1.3       munsell_0.5.1       
+[113] bayestestR_0.13.2    Brobdingnag_1.2-9    V8_4.4.2             sjstats_0.18.2      
+[117] hms_1.1.3            shiny_1.8.1.1        memoise_2.0.1        RcppParallel_5.1.7  

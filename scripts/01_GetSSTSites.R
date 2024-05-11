@@ -38,9 +38,16 @@ sst3 <- filter(sst3, !is.na(meanSST))
 #merge by distance
 sst4 <- subset(sst3, select = c("Lat", "Long"))
 site2 <- subset(site, select = c("Site_Lat", "Site_Long"))
-sst4sp <- SpatialPoints(sst4)
-site2sp <- SpatialPoints(site2)
-site2sp$nearest <- apply(gDistance(sst4sp, site2sp, byid=TRUE), 1, which.min)
+sst4sp <- vect(sst4, geom = c("Long", "Lat"), crs = "EPSG:4326")
+site2sp <- vect(site2, geom = c("Site_Long", "Site_Lat"), crs = "EPSG:4326")
+
+# Calculate distance matrix
+dist_matrix <- terra::distance(site2sp, sst4sp)
+
+# Get indices of the nearest spatial points
+site2sp$nearest <- apply(dist_matrix, 1, which.min)
+
+
 site2sp <- as.data.frame(site2sp)
 
 missing <- filter(site2sp, is.na(nearest) )
@@ -53,7 +60,7 @@ missing <- filter(site2_sst, is.na(meanSST) )
 site2_sst <- cbind(site2_sst, site)
 site2_sst <- subset(site2_sst, select=which(!duplicated(names(site2_sst)))) 
 
-#site2_sst <- merge.data.frame(site2_sst, site, by = c("Site_Lat", "Site_Long"))
+
 str(as.factor(site2_sst$UniqueSite))
 missing <- filter(site2_sst, is.na(meanSST) )
 

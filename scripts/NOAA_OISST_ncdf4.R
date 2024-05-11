@@ -20,19 +20,6 @@
 
 # Author: Luke Miller Nov 25, 2014
 ###############################################################################
-install.packages('ncdf4')
-require(ncdf4)	# install.packages('ncdf4') if you don't already have it.
-# NOTE: If you are on Windows, a pre-compiled package is not available directly 
-# from CRAN repositories. You must go to http://cirrus.ucsd.edu/~pierce/ncdf/ 
-# and download the appropriate zip file for your version of Windows and R.
-# Once that file is downloaded to your computer, open a version of Rgui.exe
-# and go to the menu item "Packages>Install package(s) from local zip file"
-# to install the ncdf4 package. This step should only be necessary once, until
-# you upgrade to a new version of R. Mac and Linux versions of ncdf4 should be
-# available directly from CRAN.
-
-install.packages('fields')
-require(fields)
 
 extractOISSTdaily = function(fname,lsmask,lonW,lonE,latS,latN, date1, date2){
   # This function takes 1-year-long NetCDF files of daily SST from the 
