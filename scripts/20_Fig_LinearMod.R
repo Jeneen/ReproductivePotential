@@ -37,9 +37,9 @@ posts %>% median_qi(LogBiomassKGMean)
 summary(fec_biom)
 
 linear_fig <- ggplot(posts, aes(x = (LogBiomassKGMean), y =(.prediction))) +
-  stat_lineribbon(.width = c(.95,.50))+
   geom_point(data=alldata, aes(x = LogBiomassKGMean, y = (LogFecundityMean)), 
-             size = 1, alpha = 0.05)+
+             size = 1, color = "black")+
+  stat_lineribbon(.width = c(.95,.50), alpha = 0.4)+
   theme+
   xlab("Log Biomass + 1 (kg/ha)")+
   ylab("Log Fecundity + 1 (eggs/ha)")+
@@ -52,8 +52,6 @@ linear_fig <- ggplot(posts, aes(x = (LogBiomassKGMean), y =(.prediction))) +
   theme(legend.position = "none")+
   theme+
   ggtitle(bquote('Power relationship, slope=1.02-1.12, median'~R^2~'=0.98'))+
-  #  theme(axis.text = element_text(size =10),
-  #axis.title = element_text(size =15))+
   scale_x_continuous(breaks = c(1,4,8))
 linear_fig
 

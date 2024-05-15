@@ -371,6 +371,7 @@ names(fished_unfished) <- c("fished_unfished")
 ratios <- as.data.frame(cbind(fished_rest, fished_unfished))
 
 median_qi(ratios$fished_unfished)
+median_qi(ratios$fished_rest)
 
 ratios$f_u<- "Fished vs unfished"
 ratios$f_r <- "Fished vs restricted"

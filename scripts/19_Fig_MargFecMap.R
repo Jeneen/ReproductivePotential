@@ -67,8 +67,11 @@ tab_df(meds_summary_count, title = "Supplementary Table 1. Median marginal fecun
 mapWorld <- map_data('world', wrap=c(-25,335), ylim=c(-55,75))
 
 #marg_fec <- subset(posts, select = c("Site_Lat", "Site_Long", ".prediction" ))
-marg_fec <- posts %>% group_by(Site_Lat, Site_Long, Protection) %>%
+marg_fec <- posts %>% group_by(LogFecunditySD, Protection,Larger, ReefCluster, sgrav_tot2, sRegional_population_growth, 
+                               sOcean_prod, sClimate_stress,sLarger_pop_size, 
+                               sReef_fish_landings_per_km2, Site_Lat, Site_Long) %>%
                          dplyr::summarise(mean_fec = mean(.prediction))
+
 
 #jitter points and fix lat/long for neg sites
 marg_fec$Site_Lat2=marg_fec$Site_Lat+runif(length(marg_fec$Site_Lat), min=0, max=4)
@@ -101,7 +104,7 @@ marg_fec_map <- ggplot() +
 marg_fec_map
 
 
-#save the rda
+#save the rds
 saveRDS(marg_fec_map, "output/map_margCateg_fec.rds")
 
 #save pdf
