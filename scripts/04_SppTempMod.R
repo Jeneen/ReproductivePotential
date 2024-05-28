@@ -34,5 +34,12 @@ lm_phy_model <- brm(
   control = list(adapt_delta = 0.999,
                  max_treedepth = 20))
 
+hyp <- paste(
+  "sd_species_tree__Intercept^2 /", 
+  "(sd_species_tree__Intercept^2 + sd_Species__Intercept^2 + sigma^2) = 0"
+)
+(hyp <- hypothesis(lm_phy_model, hyp, class = NULL))
+
+
 #save output
 saveRDS(lm_phy_model, file = "output/lmat_model_out.rds")

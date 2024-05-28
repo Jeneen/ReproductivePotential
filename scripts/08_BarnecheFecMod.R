@@ -174,6 +174,11 @@ correct_taxonomy = read_file("data/correct_taxonomy.csv")
 grafted_tree = ape::read.tree("data/grafted_tree.tre")
 fecundity_model = run_fecundity_model(fecundity, grafted_tree,
                                       correct_taxonomy)
+hyp <- paste(
+  "sd_species_tree__Intercept^2 /", 
+  "(sd_species_tree__Intercept^2 + sd_species__Intercept^2 + sigma^2) = 0"
+)
+(hyp <- hypothesis(fecundity_model, hyp, class = NULL)) #phy sig
 saveRDS(fecundity_model, file="output/fecundity_model.rds")
 
 

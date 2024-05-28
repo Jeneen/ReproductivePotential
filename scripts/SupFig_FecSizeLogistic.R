@@ -8,30 +8,35 @@ summary(Fit_SizeClassBiomass)
 
 #extract conditional effects
 #Fecundity class as proportion of abundance model
-ce_ProtAbund <- conditional_effects(Fit_FecClassAbundance, "Protection", categorical = TRUE, prob = 0.95, ndraws =1000,
+ce_ProtAbund <- conditional_effects(Fit_FecClassAbundance, "Protection", categorical = TRUE, 
+                                    prob = 0.95, ndraws =1000,
                                     re_formula = NULL)
 ce_ProtAbund <- as.data.frame(ce_ProtAbund$`Protection:cats__`)
+ce_ProtAbund_dat <- Fit_FecClassAbundance$data
 ce_BiomAbund <- conditional_effects(Fit_FecClassAbundance, "sLogMeanAllFishBiomassKgHa", categorical = TRUE,
-                                    prob = 0.95, ndraws =1000, re_formula = NULL)
+                                    prob = 0.95, ndraws =1000, re_formula = NULL) 
 ce_BiomAbund <- as.data.frame(ce_BiomAbund$`sLogMeanAllFishBiomassKgHa:cats__`)
-
+ce_BiomAbund_dat <- Fit_FecClassAbundance$data
 
 #Fecundity class as proportion of the biomass model
 ce_ProtFecBiom <- conditional_effects(Fit_FecClassBiomass, "Protection", categorical = TRUE,prob = 0.95, ndraws =1000)
 ce_ProtFecBiom <- as.data.frame(ce_ProtFecBiom$`Protection:cats__`)
+ce_ProtFecBiom_dat <- Fit_FecClassBiomass$data
 ce_BiomFecBiom <- conditional_effects(Fit_FecClassBiomass, "sLogMeanAllFishBiomassKgHa", categorical = TRUE,
                                     prob = 0.95, ndraws =1000, re_formula = NULL)
 ce_BiomFecBiom <- as.data.frame(ce_BiomFecBiom$`sLogMeanAllFishBiomassKgHa:cats__`)
-
+ce_BiomFecBiom_dat <-Fit_FecClassBiomass$data
 
 #Size class (all fish) as a proportion of the biomass model
 ce_ProtSizeBiom <- conditional_effects(Fit_SizeClassBiomass, "Protection", categorical = TRUE, ,prob = 0.95,
                                        ndraws =1000, re_formula = NULL)
 ce_ProtSizeBiom <- as.data.frame(ce_ProtSizeBiom$`Protection:cats__`)
+ce_ProtSizeBiom_dat <- Fit_SizeClassBiomass$data
+
 ce_BiomSizeBiom  <- conditional_effects(Fit_SizeClassBiomass, "sLogMeanAllFishBiomassKgHa", categorical = TRUE,
                                       prob = 0.95, ndraws =1000, re_formula = NULL)
 ce_BiomSizeBiom <- as.data.frame(ce_BiomSizeBiom$`sLogMeanAllFishBiomassKgHa:cats__`)
-
+ce_BiomSizeBiom_dat <- Fit_SizeClassBiomass$data
 
 
 ##################################################  Plot  ################################################## 
@@ -56,7 +61,9 @@ ProtAbund_fig <- ggplot(data = ce_ProtAbund, aes(x = Protection, y = estimate__,
   ylab("Proportion of mature female abundance")+
   xlab("")+
   ggtitle("Fecundity classes as a proportion of mature female abundance")+
-  ylim(0,1)
+  ylim(0,1)+
+  geom_point(data = ce_ProtAbund_dat, aes(x = Protection, y = proportion, color = fec_cat),
+             position=position_dodge(0.4), size = 1, alpha = 0.2)
 ProtAbund_fig 
 
 #biomass
@@ -66,10 +73,15 @@ BiomAbund_fig <- ggplot(data = ce_BiomAbund, aes(x = sLogMeanAllFishBiomassKgHa,
   scale_fill_manual(values = cols, labels = c("Low fecundity \n(<= 10.40 log eggs/fish)", 
                                               "Medium fecundity \n(10.40-11.84 log eggs/fish)",
                                               "High fecundity \n(>= 11.84 log eggs/fish)"))+
+  scale_color_manual(values = cols, labels = c("Low fecundity \n(<= 10.40 log eggs/fish)", 
+                                              "Medium fecundity \n(10.40-11.84 log eggs/fish)",
+                                              "High fecundity \n(>= 11.84 log eggs/fish)"))+
   theme +
   theme(legend.title = element_blank(), legend.position = 'none')+
   ylab("Proportion of mature female abundance")+
   xlab("Scaled biomass")+
+  geom_point(data = ce_BiomAbund_dat, aes(x = sLogMeanAllFishBiomassKgHa, y = proportion, fill = fec_cat,
+                                          color = fec_cat),size = 1, alpha = 0.2)+
  #ggtitle("Fecundity classes as a proportion of mature female abundance")+
 ylim(0,1)
 BiomAbund_fig
@@ -96,7 +108,10 @@ ProtFecBiom_fig <- ggplot(data = ce_ProtFecBiom, aes(x = Protection, y = estimat
   ylab("Proportion of mature female biomass")+
   xlab("")+
   ggtitle("Fecundity classes as a proportion of mature female biomass")+
-  ylim(0,1)
+  ylim(0,1)+
+  geom_point(data = ce_ProtFecBiom_dat, aes(x  = Protection, y = proportion, 
+                                          color = fec_cat),
+             position=position_dodge(0.4), size = 1, alpha = 0.2)
 ProtFecBiom_fig
 
 #biomass
@@ -106,12 +121,18 @@ BiomFecBiom_fig <- ggplot(data = ce_BiomFecBiom, aes(x = sLogMeanAllFishBiomassK
   scale_fill_manual(values = cols, labels = c("Low fecundity \n(<= 10.40 log eggs/fish)", 
                                               "Medium fecundity \n(10.40-11.84 log eggs/fish)",
                                               "High fecundity \n(>= 11.84 log eggs/fish)"))+
+  scale_color_manual(values = cols, labels = c("Low fecundity \n(<= 10.40 log eggs/fish)", 
+                                              "Medium fecundity \n(10.40-11.84 log eggs/fish)",
+                                              "High fecundity \n(>= 11.84 log eggs/fish)"))+
   theme +
   theme(legend.title = element_blank(), legend.position = 'none')+
   ylab("Proportion of mature female biomass")+
   xlab("Scaled biomass")+
   #ggtitle("Fecundity classes as a proportion of mature female biomass")+
-ylim(0,1)
+ylim(0,1)+
+  geom_point(data = ce_BiomFecBiom_dat, aes(x = sLogMeanAllFishBiomassKgHa, y = proportion, 
+                                            color = fec_cat, fill = fec_cat), 
+             size = 1, alpha = 0.2)
 BiomFecBiom_fig 
 
 
@@ -132,7 +153,10 @@ ProtSizeBiom_fig <- ggplot(data = ce_ProtSizeBiom, aes(x = Protection, y = estim
   ylab("Proportion of total biomass")+
   xlab("")+
   ggtitle("Size classes as a proportion of the total biomass")+
-  ylim(0,1)
+  ylim(0,1)+
+  geom_point(data = ce_ProtSizeBiom_dat, aes(x  = Protection, y = proportion, 
+                                            color = size_cat),
+             position=position_dodge(0.4), size = 1, alpha = 0.2)
 ProtSizeBiom_fig
 
 #biomass
@@ -140,11 +164,16 @@ SizeBiom_fig <- ggplot(data = ce_BiomSizeBiom, aes(x = sLogMeanAllFishBiomassKgH
   geom_line()+
   geom_ribbon(aes(ymin = lower__, ymax = upper__), alpha = 0.6)+
   scale_fill_manual(values = cols, labels = c("Small (<=17.5cm)", "Medium size (17.5-27.5cm)", "Large size (>=27.5cm)"))+
+  scale_color_manual(values = cols, labels = c("Small (<=17.5cm)", "Medium size (17.5-27.5cm)", "Large size (>=27.5cm)"))+
   theme +
   theme(legend.title = element_blank(), legend.position = 'none')+
   ylab("Proportion of total biomass")+
   xlab("Scaled biomass")+
-  ylim(0,1)
+  ylim(0,1)+
+  geom_point(data = ce_BiomSizeBiom_dat, aes(x = sLogMeanAllFishBiomassKgHa, y = proportion, 
+                                            color = size_cat, fill = size_cat), 
+             size = 1, alpha = 0.2)
+  
   #ggtitle("Size classes as a proportion of the total biomass")
 SizeBiom_fig 
 
@@ -181,6 +210,7 @@ proportionMatureFit <- readRDS("output/proportionMatureFit.rds")
 ce_propMature <- conditional_effects(proportionMatureFit, "Protection",
                                        prob = 0.95, ndraws =1000, re_formula = NULL) 
 ce_propMature  <- as.data.frame(ce_propMature$Protection)
+ce_propMature_dat <- proportionMatureFit$data
 
 ProtMatureBiom_fig <- ggplot(data = ce_propMature, aes(x = Protection, y = estimate__))+
   geom_point(position=position_dodge(0.4), size = 5)+
@@ -192,7 +222,9 @@ ProtMatureBiom_fig <- ggplot(data = ce_propMature, aes(x = Protection, y = estim
   ylab("Proportion of total biomass")+
   xlab("")+
   ggtitle("Fish >= length at maturity as a \nproportion of the total biomass")+
-  ylim(0,1)
+  ylim(0,1) +
+  geom_jitter(data = ce_propMature_dat, aes(x  = Protection, y = mean_prop_mature),
+              size = 1, alpha = 0.2)
 ProtMatureBiom_fig
 
 
@@ -214,7 +246,7 @@ dev.off()
 
 
 
-pdf(file = "Output/supplement/proportionMature_vsBiomass_model.pdf",   # The directory you want to save the file in
+pdf(file = "output/proportionMature_vsBiomass_model.pdf",   # The directory you want to save the file in
     width = 10, # The width of the plot in inches
     height = 10) # The height of the plot in inches
 
@@ -224,7 +256,7 @@ propMature_fig
 dev.off()
 
 
-pdf(file = "Output/supplement/proportionMature_vsProtection_model.pdf",   # The directory you want to save the file in
+pdf(file = "output/proportionMature_vsProtection_model.pdf",   # The directory you want to save the file in
     width = 10, # The width of the plot in inches
     height = 10) # The height of the plot in inches
 

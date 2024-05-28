@@ -46,6 +46,14 @@ sex_phy_model <- brms::brm(RatioProportions ~
                            control = list(adapt_delta = 0.999,
                                           max_treedepth = 20))
 
+#check phylo signal 
+inverse_logit = function(x) {
+  1 / (1 + exp(-x))}
+hyp <- "((inverse_logit(sd_species_tree__Intercept))^2 / 
+                ((inverse_logit(sd_species_tree__Intercept))^2 + (inverse_logit(phi))^2)) = 0"
+(hyp <- hypothesis(sex_model, hyp, class = NULL))
+
+
 #save
 saveRDS(sex_phy_model, file = "output/sex_phy_model_noprotog.rds")
 
