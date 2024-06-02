@@ -57,13 +57,10 @@ dat$UniqueSite <- as.factor(dat$UniqueSite)
 biom_mature <- readRDS("output/SERF_biomass_matureF.rds")
 biom_mature <- biom_mature %>% group_by(UniqueSite, UniqueTransect) %>%
   mutate(number_mature = sum(Number*prob_mat),
-            total_number = sum(Number),
-            proportion_mature = number_mature/total_number)
-
+            total_number = sum(Number))
+biom_mature$number_mature <- ifelse(is.na(biom_mature$number_mature), 0, biom_mature$number_mature)
 biom_mature <- biom_mature %>% group_by(UniqueSite, UniqueTransect) %>%
-                                   summarise(number_mature = sum(Number*prob_mat),
-                                             total_number = sum(Number),
-                                             proportion_mature = number_mature/total_number)
+  mutate(proportion_mature = number_mature/(total_number+0.001))
                                             
 biom_mature <- biom_mature %>% group_by(UniqueSite) %>% summarise(mean_prop_mature = mean(proportion_mature))
 biom_mature$UniqueSite <- as.factor(biom_mature$UniqueSite)

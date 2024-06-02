@@ -1,3 +1,15 @@
+#set theme
+theme <-  theme(panel.border = element_blank(),
+                panel.grid.major = element_blank(),
+                panel.grid.minor = element_blank(),
+                panel.background = element_blank(),
+                axis.text = element_text(size =15),
+                axis.title = element_text(size =15),
+                axis.line = element_line(size = 0.5, linetype = "solid",
+                                         colour = "black"),
+                legend.text=element_text(size=15))
+
+
 #Load models
 Fit_FecClassBiomass<- readRDS("output/logisticFecBiom_model.rds")
 summary(Fit_FecClassBiomass)

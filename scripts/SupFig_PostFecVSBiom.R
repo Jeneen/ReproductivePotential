@@ -12,9 +12,6 @@ theme <-  theme(panel.border = element_blank(),
 
 
 
-#fec <- readRDS("Output/reproductive_potential_serf/brms_fecundity.rds")
-#dat<-readRDS("Output/reproductive_potential_serf/alldata_clean_cinner2020.rda")
-#dat$LogBiomassMedian <- log(dat$BiomassMedian +1)
 fec <- readRDS("output/brms_fecundity_se.rds")
 dat <- readRDS("Output/alldata_SDandCIof1000_clean_cinner2020.rda")
 

@@ -31,6 +31,10 @@ posts_30GB_mean_ser %>% group_by(Geographic_Basin) %>% median_qi(log(meanGB+1))
 posts_30GB_mean_ser %>% group_by(Geographic_Basin) %>% median_qi(log(mean30+1))
 
 
+posts_30GB_mean %>% group_by(Geographic_Basin) %>% count()
+posts_30GB_mean_ser %>% group_by(Geographic_Basin) %>% count()
+
+
 #plot all families
 all <- ggplot()+
   stat_pointinterval(data = posts_30GB_mean, aes(x = reorder(label, -orderFig), y = percent_diff,

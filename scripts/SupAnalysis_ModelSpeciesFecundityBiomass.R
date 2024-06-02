@@ -2,7 +2,7 @@
 options(mc.cores = parallel::detectCores())
 
 #data
-relDat <- readRDS( "output/SizeProportions_site_fecundity_med1000samp.rds")
+relSizeDat <- readRDS("output/SizeProportionsAllFish_site_fecundity_med1000samp.rds")
 
 ### combine all size categories and run a logistic regression
 #Proportional biomass of size classes (all fish, not just MATF) 
@@ -48,9 +48,9 @@ relFDat$LogMeanAllFishBiomassKgHa <- log(relFDat$MeanAllFishBiomassKgHa + 1)
 relFDat$sLogMeanAllFishBiomassKgHa <- standardize(relFDat$LogMeanAllFishBiomassKgHa)
 
 #recalculate proportions as prop of total abundance of mat F (not total abundance)
-relFDat$propAbHighFec <- relFDat$HighCAbundance/relFDat$TotalAbundFec
-relFDat$propAbMedFec <- relFDat$MedCAbundance/relFDat$TotalAbundFec
-relFDat$propAbLowFec <- relFDat$LowCAbundance/relFDat$TotalAbundFec
+relFDat$propAbHighFec <- relFDat$HighCAbundance/(relFDat$TotalAbundFec + 0.001)
+relFDat$propAbMedFec <- relFDat$MedCAbundance/(relFDat$TotalAbundFec + 0.001)
+relFDat$propAbLowFec <- relFDat$LowCAbundance/(relFDat$TotalAbundFec +0.001)
 relFDat$sum <- relFDat$propAbLowFec + relFDat$propAbHighFec + relFDat$propAbMedFec
 
 #from wide to long
@@ -85,9 +85,9 @@ relFDat$sLogMeanAllFishBiomassKgHa <- standardize(relFDat$LogMeanAllFishBiomassK
 
 
 relFDat$TotalBiomFec <- relFDat$HighCBiomass + relFDat$MedCBiomass + relFDat$LowCBiomass
-relFDat$propBiomHighFec <- relFDat$HighCBiomass/relFDat$TotalBiomFec
-relFDat$propBiomMedFec <- relFDat$MedCBiomass/relFDat$TotalBiomFec
-relFDat$propBiomLowFec <-relFDat$LowCBiomass/relFDat$TotalBiomFec
+relFDat$propBiomHighFec <- relFDat$HighCBiomass/(relFDat$TotalBiomFec+ 0.001)
+relFDat$propBiomMedFec <- relFDat$MedCBiomass/(relFDat$TotalBiomFec+ 0.001)
+relFDat$propBiomLowFec <-relFDat$LowCBiomass/(relFDat$TotalBiomFec+ 0.001)
 relFDat$sum <- relFDat$propBiomLowFec + relFDat$propBiomHighFec + relFDat$propBiomMedFec
 
 
